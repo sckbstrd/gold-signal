@@ -57,7 +57,9 @@ def pinned_series(code: str, calendar: str, end: date, anchors: dict[date, float
             values[k] = base + wiggle
     for d in keys:
         values[idx[d]] = anchors[d]
-    return Series(code, calendar, tuple(Obs(d, v) for d, v in zip(days, values)))
+    # Round away last-bit libm differences (sin/exp differ across OSes) so the demo snapshot -- and
+    # its reproducibility hash -- are identical on Windows, Linux and macOS.
+    return Series(code, calendar, tuple(Obs(d, round(v, 9)) for d, v in zip(days, values)))
 
 
 def with_window_stats(series: Series, n: int, mean: float, std: float, fixed: set[date]) -> Series:
@@ -72,7 +74,7 @@ def with_window_stats(series: Series, n: int, mean: float, std: float, fixed: se
     c = (n * mean - sum(pinned)) / len(free)
     target_sq = n * (std ** 2 + mean ** 2)
     a = math.sqrt((target_sq - sum(v * v for v in pinned) - len(free) * c * c) / sum(x * x for x in dev))
-    new_vals = {o.date: a * x + c for o, x in zip(free, dev)}
+    new_vals = {o.date: round(a * x + c, 9) for o, x in zip(free, dev)}
     obs = [Obs(o.date, new_vals.get(o.date, o.value)) for o in obs]
     return Series(series.code, series.calendar, tuple(obs))
 

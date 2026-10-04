@@ -1,7 +1,7 @@
 {
  "model_version": "1.0.0",
  "params_sha256": "56ef04fc7ea8e47983323c783e0fb589561a688e66e37a69485072730e21dc95",
- "inputs_sha256": "f9abb61f8c63d14b2f46e0233fae193cffe1a2cd264c68eca9a48525fadecc11",
+ "inputs_sha256": "522953d0a3b91c07d2a22c1a6ceaa5ffdfe5c67ae8b729c4cae54424e5f0cf42",
  "evaluated_at": "2026-10-02T23:30:00+00:00",
  "as_of_date": "2026-10-02",
  "is_official": true,
