@@ -1,0 +1,349 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Navigation & common -->
+    <string name="nav_signal">Sinyal</string>
+    <string name="nav_events">Takvim</string>
+    <string name="nav_backtest">Geriye Test</string>
+    <string name="nav_settings">Ayarlar</string>
+    <string name="action_back">Geri</string>
+    <string name="action_retry">Tekrar dene</string>
+    <string name="error_title">Veriler yüklenemedi</string>
+    <string name="none">yok</string>
+
+    <!-- Dashboard -->
+    <string name="dashboard_title">ALTIN SİNYALİ</string>
+    <string name="updated_at">Güncelleme: %1$s</string>
+    <string name="mock_title">DEMO VERİ</string>
+    <string name="mock_body">Gerçek puanlama motorunun ürettiği örnek değerler; canlı piyasa fiyatları değildir.</string>
+    <string name="gold_spot">Altın (XAU/USD)</string>
+    <string name="gram_gold">Gram altın (teorik)</string>
+    <string name="change_1d">Bugün %1$s</string>
+    <string name="distance_from_high">52 haftalık zirveye (%2$s) göre %1$s</string>
+    <string name="gold_score">Altın Skoru</string>
+    <string name="gauge_description">Altın Skoru 100 üzerinden %1$s, %2$s</string>
+    <string name="score_short">Skor %1$s</string>
+    <string name="signal_since">%1$s tarihinden beri</string>
+    <string name="pending_change">%1$s bekleniyor — %2$d/%3$d gün</string>
+    <string name="confidence_value">Güven %1$s</string>
+    <string name="confidence_disclaimer">Model güveni — gelecekteki getirinin olasılığı değildir.</string>
+    <string name="regime_label">Piyasa rejimi</string>
+    <string name="factors_title">Skoru belirleyenler</string>
+    <string name="factors_note">Her göstergenin ağırlığı üzerinden aldığı puan. Çubuk nötr noktada ortalanır: sağ taraf altını destekler, sol taraf aleyhinedir.</string>
+    <string name="factor_points">%1$s / %2$s</string>
+    <string name="global_gold">KÜRESEL ALTIN</string>
+    <string name="gram_gold_signal">GRAM ALTIN</string>
+    <string name="why_button">Neden?</string>
+    <string name="next_evaluation">Sonraki resmi değerlendirme: %1$s</string>
+    <string name="disclaimer">Gold Signal bir analiz aracıdır, yatırım tavsiyesi değildir. Hiçbir zaman işlem yapmaz ve AL sinyali kâr garantisi vermez.</string>
+    <string name="model_version">Model v%1$s</string>
+
+    <!-- Data status -->
+    <string name="data_delayed">VERİ GECİKMESİ</string>
+    <string name="data_delayed_body">Kritik bir gösterge mevcut değil veya eski. Etkisi kaldırıldı ve model güveni düşürüldü.</string>
+    <string name="data_degraded">BAZI VERİLER ESKİYOR</string>
+    <string name="data_degraded_body">Bazı girdiler normalden eski ya da bir veri açıklaması gecikti. Etkileri azaltıldı.</string>
+
+    <!-- Signals, regimes -->
+    <string name="signal_strong_buy">GÜÇLÜ AL</string>
+    <string name="signal_buy">AL</string>
+    <string name="signal_hold">TUT</string>
+    <string name="signal_reduce">AZALT</string>
+    <string name="signal_sell">SAT</string>
+    <string name="regime_gold_bull">ALTIN BOĞA PİYASASI</string>
+    <string name="regime_gold_bear">ALTIN AYI PİYASASI</string>
+    <string name="regime_transition">GEÇİŞ DÖNEMİ</string>
+    <string name="regime_panic">PANİK / LİKİDİTE ŞOKU</string>
+    <string name="regime_desc_bull">Başlıca makro göstergelerin çoğu altını destekliyor.</string>
+    <string name="regime_desc_bear">Başlıca makro göstergelerin çoğu altın aleyhine.</string>
+    <string name="regime_desc_transition">Göstergeler karışık ya da yön değiştiriyor.</string>
+    <string name="regime_desc_panic">Aşırı piyasa stresi: olağan ilişkiler geçici olarak bozulabilir.</string>
+
+    <!-- Components -->
+    <string name="comp_real_yield">ABD 10Y Reel Faiz</string>
+    <string name="comp_fed">Fed Beklentileri</string>
+    <string name="comp_dxy">ABD Doları (DXY)</string>
+    <string name="comp_nominal">ABD 10Y Tahvil Faizi</string>
+    <string name="comp_econ">ABD Ekonomik Verileri</string>
+    <string name="comp_etf">Altın ETF Akışları</string>
+    <string name="comp_cb">Merkez Bankası Alımları</string>
+    <string name="comp_fx">USD/TRY ve faiz getirisi</string>
+    <string name="comp_gram">Gram Altın (TL)</string>
+
+    <string name="impact_bullish">OLUMLU</string>
+    <string name="impact_bearish">OLUMSUZ</string>
+    <string name="impact_neutral">NÖTR</string>
+    <string name="trend_label">Eğilim</string>
+    <string name="trend_falling">DÜŞÜYOR</string>
+    <string name="trend_rising">YÜKSELİYOR</string>
+    <string name="trend_flat">YATAY</string>
+    <string name="gold_impact">Altına etkisi</string>
+    <string name="status_fresh">güncel</string>
+    <string name="status_aging">eskiyor</string>
+    <string name="status_stale">eski</string>
+    <string name="status_missing">eksik</string>
+    <string name="status_mock">demo veri</string>
+
+    <!-- Indicator detail -->
+    <string name="current_value">Güncel</string>
+    <string name="fed_path_value">Piyasanın fiyatladığı patika (6A ve 12A ort.)</string>
+    <string name="label_1d">1G</string>
+    <string name="label_7d">7G</string>
+    <string name="label_30d">30G</string>
+    <string name="label_90d">90G</string>
+    <string name="label_30d_window">Dönem: %1$s</string>
+    <string name="contribution">Skora katkı</string>
+    <string name="contribution_value">%1$s / %2$s puan (nötre göre %3$s)</string>
+    <string name="chart_1m">1A</string>
+    <string name="chart_3m">3A</string>
+    <string name="chart_1y">1Y</string>
+    <string name="how_scored">Nasıl puanlanıyor</string>
+    <string name="how_scored_body">Her değişim, o vade için tipik bir harekete bölünür. Tipik hareketin dörtte birinden küçük hareketler gürültü sayılıp yok sayılır; sonuç −1…+1 aralığına sıkıştırılır ve ağırlıklandırılır.</string>
+    <string name="col_horizon">Girdi</string>
+    <string name="col_change">Değişim</string>
+    <string name="col_typical">Tipik</string>
+    <string name="col_score">Puan</string>
+    <string name="col_weight">Ağırlık</string>
+    <string name="sub_stance">Fiyatlanan gevşeme (12A)</string>
+    <string name="sub_level">1Y ortalamaya göre seviye</string>
+    <string name="sub_momentum">3 aylık hız</string>
+    <string name="data_age">Veri tarihi %1$s · %2$s önce · %3$s · kaynak: %4$s</string>
+
+    <!-- Fed -->
+    <string name="fed_current_title">Mevcut Fed politikası</string>
+    <string name="fed_target_range">Hedef aralık</string>
+    <string name="fed_effr">Efektif federal fon oranı</string>
+    <string name="fed_last_decision">Son karar</string>
+    <string name="fed_implied_title">Piyasanın fiyatladığı gelecek Fed politikası</string>
+    <string name="fed_in_3m">Önümüzdeki 3 ay</string>
+    <string name="fed_in_6m">Önümüzdeki 6 ay</string>
+    <string name="fed_in_12m">Önümüzdeki 12 ay</string>
+    <string name="fed_priced">12 ay içinde fiyatlanan</string>
+    <string name="bp_cuts">%1$s indirim</string>
+    <string name="bp_hikes">%1$s artırım</string>
+    <string name="fed_method_tbill">Kaynak: ABD Hazine bonosu eğrisi (beklenen politika faizi için yaklaşık gösterge). Kesikli çizgi mevcut politika aralığının ortasıdır.</string>
+    <string name="fed_not_confuse">Mevcut politika, Fed\'in hâlihazırda belirlediği faizdir. Piyasanın fiyatladığı politika ise piyasaların bundan sonrası için beklentisidir. Altın daha çok ikincisindeki değişimlere tepki verir.</string>
+    <string name="priced_cuts">12 ay içinde %1$s indirim fiyatlanıyor</string>
+    <string name="priced_hikes">12 ay içinde %1$s artırım fiyatlanıyor</string>
+
+    <!-- Nominal 10Y -->
+    <string name="nom_decomposition">Nominal = reel + enflasyon beklentisi</string>
+    <string name="nom_nominal">Nominal 10Y</string>
+    <string name="nom_real">Reel 10Y</string>
+    <string name="nom_breakeven">Başabaş (enflasyon bekl.)</string>
+    <string name="nom_avg">1 yıllık ortalama</string>
+    <string name="nom_z">Ortalamadan standart sapma</string>
+    <string name="nom_dedup_note">Herhangi bir hareketin reel faiz kısmı zaten reel faiz göstergesinde puanlanıyor. Çifte sayımı önlemek için bu gösterge yalnızca enflasyon beklentilerini ve nominal faizin 1 yıllık normuna göre ne kadar yüksek olduğunu puanlar.</string>
+
+    <!-- Economic data -->
+    <string name="econ_recent">Son açıklanan veriler</string>
+    <string name="econ_actual">Gerçekleşen</string>
+    <string name="econ_expected">Beklenti</string>
+    <string name="econ_previous">Önceki</string>
+    <string name="econ_surprise">Sürpriz</string>
+    <string name="econ_delayed">GECİKTİ</string>
+    <string name="econ_note">Model, bir verinin \"iyi\" ya da \"kötü\" olmasını değil, sürprizi (gerçekleşen − beklenti) puanlar. Eski veriler 14 günlük yarılanma süresiyle etkisini yitirir.</string>
+
+    <!-- Central banks -->
+    <string name="cb_t12">Net alımlar, son 12 ay</string>
+    <string name="cb_t3">Net alımlar, son 3 ay</string>
+    <string name="cb_baseline">Uzun dönem ortalama (yıllık)</string>
+    <string name="cb_note">Uzun vadeli gösterge: gecikmeyle yayımlanan aylık veri. Skora en fazla ±2,5 puan etki eder.</string>
+
+    <!-- Gram gold -->
+    <string name="gram_theoretical">Teorik gram altın</string>
+    <string name="gram_formula">Gram = XAU/USD ÷ 31,1035 × USD/TRY</string>
+    <string name="gram_usdtry">USD/TRY</string>
+    <string name="gram_market">Piyasa gram altın</string>
+    <string name="gram_market_na">lisanslı fiyat kaynağı tanımlı değil</string>
+    <string name="gram_decomp_title">Belirleyenlere göre 30 günlük değişim</string>
+    <string name="gram_decomp_gold">Dolar bazında altın</string>
+    <string name="gram_fx_leg_title">Kur bacağı: USD/TRY ve TL faizi</string>
+    <string name="gram_fx_move">USD/TRY</string>
+    <string name="gram_carry">TL faiz getirisi</string>
+    <string name="gram_excess">Fazla</string>
+    <string name="gram_policy_rates">Politika faizleri: TCMB %1$s · Fed %2$s</string>
+    <string name="gram_tilt">Küresel skora uygulanan düzeltme: %1$s puan (en fazla ±%2$s)</string>
+    <string name="gram_carry_note">USD/TRY neredeyse her ay yükselir. Yalnızca TL mevduat faizinin telafi ettiğinden fazla değer kaybı gram altın lehine sayılır.</string>
+    <string name="gram_two_drivers">Türk yatırımcının iki ayrı belirleyicisi vardır: küresel altın fiyatı ve Türk lirası. Küresel altının tek başına zayıflaması \"gram altını sat\" anlamına gelmez.</string>
+
+    <!-- Why -->
+    <string name="why_title">Neden?</string>
+    <string name="why_tab_global">Küresel altın</string>
+    <string name="why_tab_gram">Gram altın</string>
+    <string name="why_signal">Altın için sinyal neden %1$s?</string>
+    <string name="why_gram_signal">Gram altın için sinyal neden %1$s?</string>
+    <string name="why_score_line">Skor %1$s / 100 · Güven %2$s · %3$s</string>
+    <string name="why_positive">Destekleyen faktörler</string>
+    <string name="why_negative">Olumsuz faktörler</string>
+    <string name="why_neutral">Nötr</string>
+    <string name="why_warnings">Veri notları</string>
+    <string name="why_conclusion">Sonuç</string>
+    <string name="why_generated_note">Modelin gerçek girdilerinden üretildi (model v%1$s).</string>
+
+    <string name="mag_little">hafifçe</string>
+    <string name="mag_moderate">orta düzeyde</string>
+    <string name="mag_significant">belirgin şekilde</string>
+    <string name="mag_sharp">sert şekilde</string>
+
+    <!-- Reasons -->
+    <string name="r_real_yield_falling">Reel faizler %1$s düştü: 30 günde %2$s (7 günde %3$s).</string>
+    <string name="r_real_yield_rising">Reel faizler %1$s yükseldi: 30 günde %2$s (7 günde %3$s).</string>
+    <string name="r_real_yield_flat">Reel faizler pek değişmedi (30 günde %1$s).</string>
+    <string name="r_fed_path_lower">Piyasanın fiyatladığı Fed faizleri %1$s geriledi: 30 günde %2$s; %3$s.</string>
+    <string name="r_fed_path_higher">Piyasanın fiyatladığı Fed faizleri %1$s yükseldi: 30 günde %2$s; %3$s.</string>
+    <string name="r_fed_path_stable">Piyasanın fiyatladığı Fed faizleri pek değişmedi; %1$s.</string>
+    <string name="r_dxy_falling">ABD doları (DXY) %1$s zayıflıyor: 30 günde %2$s.</string>
+    <string name="r_dxy_rising">ABD doları (DXY) %1$s güçleniyor: 30 günde %2$s.</string>
+    <string name="r_dxy_flat">ABD doları (DXY) pek değişmedi (30 günde %1$s).</string>
+    <string name="r_nominal_level_elevated">10 yıllık nominal faiz yüksek: %1$s, 1 yıllık ortalamasının %2$s standart sapma üzerinde.</string>
+    <string name="r_nominal_level_low">10 yıllık nominal faiz düşük: %1$s, 1 yıllık ortalamasının %2$s standart sapma altında.</string>
+    <string name="r_breakevens_rising">Enflasyon beklentileri (10Y başabaş) yükseliyor: 30 günde %1$s.</string>
+    <string name="r_breakevens_falling">Enflasyon beklentileri (10Y başabaş) düşüyor: 30 günde %1$s.</string>
+    <string name="r_nominal_neutral">10 yıllık nominal faiz (%1$s) belirleyici değil; enflasyon beklentileri 30 günde %2$s değişti.</string>
+    <string name="r_econ_dovish">ABD verileri güvercin yönde sürpriz yaptı: %1$s %2$s geldi (beklenti %3$s).</string>
+    <string name="r_econ_hawkish">ABD verileri şahin yönde sürpriz yaptı: %1$s %2$s geldi (beklenti %3$s).</string>
+    <string name="r_econ_mixed">Ekonomik veriler karışık (destekleyen: %1$s; karşı: %2$s).</string>
+    <string name="r_econ_quiet">Son 60 günde ABD verilerinde kayda değer bir sürpriz yok.</string>
+    <string name="r_etf_inflows">Altın ETF varlıkları artıyor: 30 günde %1$s.</string>
+    <string name="r_etf_outflows">Altın ETF varlıkları azalıyor: 30 günde %1$s.</string>
+    <string name="r_etf_stable">Altın ETF varlıkları sabit (30 günde %1$s).</string>
+    <string name="r_cb_strong">Merkez bankalarının altın alımları güçlü seyrediyor: 12 ayda %1$s.</string>
+    <string name="r_cb_weak">Merkez bankalarının altın alımları zayıf: 12 ayda %1$s.</string>
+    <string name="r_cb_normal">Merkez bankalarının altın alımları uzun dönem normuna yakın: 12 ayda %1$s.</string>
+    <string name="r_gram_global_driver">Küresel altın sinyali: %1$s (skor %2$s).</string>
+    <string name="r_gram_fx_weaker">Lira, TL faizinin telafi ettiğinden daha hızlı değer kaybediyor: 30 günde USD/TRY %1$s, faiz getirisi %2$s.</string>
+    <string name="r_gram_fx_stronger">TL faizi, liradaki değer kaybını fazlasıyla telafi ediyor: 30 günde USD/TRY %1$s, faiz getirisi %2$s.</string>
+    <string name="r_gram_fx_in_line">USD/TRY faiz getirisiyle uyumlu hareket ediyor (30 günde %1$s, faiz getirisi %2$s); bu nedenle kur bacağı nötr.</string>
+
+    <string name="w_component_aging">%1$s verisi eskiyor (%2$s önce); etkisi azaltıldı.</string>
+    <string name="w_component_stale">%1$s verisi eski (%2$s önce) ve artık skoru etkilemiyor.</string>
+    <string name="w_component_missing">%1$s verisi mevcut değil; nötr kabul edildi.</string>
+    <string name="w_release_delayed">%2$s tarihinde beklenen %1$s verisi gecikti.</string>
+    <string name="w_panic">Aşırı piyasa stresi: olağan ilişkiler geçici olarak bozulabilir.</string>
+    <string name="w_demo_data">Demo veri.</string>
+    <string name="w_coverage_gap">%1$s verisi günlerin %2$s kadarında mevcut değildi ve nötr kabul edildi.</string>
+
+    <string name="c_most_favor">Başlıca makro etkenlerin çoğu şu anda altını destekliyor.</string>
+    <string name="c_most_favor_with_risk">Başlıca makro etkenlerin çoğu şu anda altını destekliyor, ancak %1$s bir risk olmaya devam ediyor.</string>
+    <string name="c_most_oppose">Başlıca makro etkenlerin çoğu şu anda altın aleyhine.</string>
+    <string name="c_most_oppose_with_support">Başlıca makro etkenlerin çoğu şu anda altın aleyhine, ancak %1$s destek olmayı sürdürüyor.</string>
+    <string name="c_hold_mixed">Makro etkenler karışık: %1$s altını desteklerken %2$s baskı yapıyor.</string>
+    <string name="c_hold_leaning_positive">Henüz belirleyici bir sinyal yok; koşullar hafifçe altın lehine.</string>
+    <string name="c_hold_leaning_negative">Henüz belirleyici bir sinyal yok; koşullar hafifçe altın aleyhine.</string>
+    <string name="c_hold_quiet">Makro etkenler nötre yakın; belirleyici bir durum yok.</string>
+    <string name="c_panic_caution">Piyasalar stres rejiminde; sinyaller her zamankinden daha az güvenilir.</string>
+    <string name="c_gram_follows_global">Gram altın küresel altın sinyalini izliyor; kur bacağı nötr.</string>
+    <string name="c_gram_fx_driven_positive">Küresel altın nötr; TL bacağı gram altın sinyalini yukarı taşıyor.</string>
+    <string name="c_gram_fx_driven_negative">Küresel altın nötr; TL bacağı gram altın sinyalini aşağı çekiyor.</string>
+    <string name="c_gram_aligned">Küresel altın ve TL bacağı aynı yönü gösteriyor.</string>
+    <string name="c_gram_offset">Küresel altın ve TL bacağı ters yönlere çekiyor ve kısmen birbirini dengeliyor.</string>
+
+    <!-- Events -->
+    <string name="events_title">ABD ekonomik takvimi</string>
+    <string name="events_upcoming">Yaklaşan</string>
+    <string name="events_released">Açıklanan</string>
+    <string name="events_tz_note">Saatler cihazınızın saat diliminde gösterilir.</string>
+    <string name="event_cpi_yoy">TÜFE (yıllık)</string>
+    <string name="event_core_cpi_mom">Çekirdek TÜFE (aylık)</string>
+    <string name="event_pce_yoy">PCE (yıllık)</string>
+    <string name="event_core_pce_mom">Çekirdek PCE (aylık)</string>
+    <string name="event_nfp">Tarım Dışı İstihdam</string>
+    <string name="event_unemployment">İşsizlik Oranı</string>
+    <string name="event_initial_claims">İlk İşsizlik Başvuruları</string>
+    <string name="event_ism_mfg">ISM İmalat</string>
+    <string name="event_ism_services">ISM Hizmet</string>
+    <string name="event_fomc">FOMC kararı</string>
+
+    <!-- Backtest -->
+    <string name="backtest_title">Geriye Dönük Test</string>
+    <string name="bt_start">Başlangıç (YYYY-AA-GG)</string>
+    <string name="bt_end">Bitiş (YYYY-AA-GG)</string>
+    <string name="bt_capital">Sermaye (USD)</string>
+    <string name="bt_cost">Maliyet / işlem (bp)</string>
+    <string name="bt_run">Testi çalıştır</string>
+    <string name="bt_invalid_date">Tarihleri YYYY-AA-GG biçiminde girin.</string>
+    <string name="bt_invalid_range">Bitiş tarihi başlangıç tarihinden sonra olmalı.</string>
+    <string name="bt_invalid_capital">Pozitif bir sermaye tutarı girin.</string>
+    <string name="bt_invalid_cost">0 ile 500 bp arasında bir maliyet girin.</string>
+    <string name="bt_rules" formatted="false">Kurallar: bir günün kapanışındaki sinyal ertesi günün kapanışında işleme alınır. AL / GÜÇLÜ AL = %100 altın, AZALT / SAT = nakit, TUT mevcut pozisyonu korur. Her tarihte yalnızca o tarihte mevcut olan veriler kullanılır ve model sürümü sabittir.</string>
+    <string name="bt_demo_title">DEMO — TARİHSEL BİR SONUÇ DEĞİLDİR</string>
+    <string name="bt_demo_body">Ekran düzeninin incelenebilmesi için sentetik fiyatlar ve skorlar gerçek sinyal kurallarından geçirildi. Gerçek test 6. aşamada gelecek. Bu demo her zaman %1$s – %2$s dönemini kapsar; yalnızca girdiğiniz sermaye uygulanır.</string>
+    <string name="bt_strategy">Gold Signal</string>
+    <string name="bt_buy_hold">Al ve Tut</string>
+    <string name="bt_final">Son değer</string>
+    <string name="bt_total_return">Toplam getiri</string>
+    <string name="bt_cagr">Yıllık getiri</string>
+    <string name="bt_mdd">Maksimum düşüş</string>
+    <string name="bt_sharpe">Sharpe oranı</string>
+    <string name="bt_trades">İşlemler</string>
+    <string name="bt_win_rate">Kazanma oranı</string>
+    <string name="bt_avg_gain">Ortalama kazanç</string>
+    <string name="bt_avg_loss">Ortalama kayıp</string>
+    <string name="bt_best">En iyi işlem</string>
+    <string name="bt_worst">En kötü işlem</string>
+    <string name="bt_invested">Yatırımda kalma süresi</string>
+    <string name="bt_equity">Portföy değeri</string>
+    <string name="bt_open">açık</string>
+
+    <!-- Settings -->
+    <string name="settings_title">Ayarlar</string>
+    <string name="settings_language">Dil</string>
+    <string name="lang_system">Sistem varsayılanı</string>
+    <string name="settings_data_source">Veri kaynağı</string>
+    <string name="data_source_mock">Gerçek puanlama motorunun ürettiği, uygulamaya gömülü örnek veriler. İnternet gerekmez; piyasa verisi değildir.</string>
+    <string name="data_source_live">Gold Signal sunucusunun her ABD işlem günü sonrasında (23:30 UTC) yayımladığı resmi değerlendirmeler. Veriler çevrimdışı kullanım için saklanır.</string>
+    <string name="settings_alerts">Bildirimler</string>
+    <string name="alerts_phase7">Sinyal değişiklikleri, büyük skor hareketleri, rejim değişiklikleri, önemli ABD veri açıklamaları, Fed kararları ve aşırı piyasa olayları için bildirimler 7. aşamada gelecek.</string>
+    <string name="settings_about">Hakkında</string>
+    <string name="about_body">Gold Signal, altının başlıca makro belirleyicilerini (reel faizler, Fed beklentileri, dolar, nominal faizler, ABD veri sürprizleri, ETF akışları ve merkez bankası alımları) analiz eder ve bunları şeffaf bir 0–100 skorda birleştirir. Kurallar sabittir ve sürümlenir; aynı girdiler her zaman aynı sonucu verir.</string>
+    <string name="about_confidence">Güven; göstergeler arasındaki uyumu, verilerin güncelliğini, sinyalin kalıcılığını ve hareketlerin büyüklüğünü ölçer. Altının yükselme olasılığı değildir.</string>
+    <string name="about_no_trading">Uygulama hiçbir zaman işlem yapmaz. Yalnızca karar destek aracıdır.</string>
+    <string name="about_app_version">Uygulama sürümü</string>
+    <string name="about_translation_note">Türkçe ve Rusça çeviriler, herkese açık yayından önce anadili bu dillerden biri olan bir kişi tarafından gözden geçirilmelidir.</string>
+
+    <!-- Phase 4/5 -->
+    <string name="action_refresh">Yenile</string>
+    <string name="use_demo_data">Bunun yerine demo veriyi kullan</string>
+    <string name="offline_title">ÇEVRİMDIŞI</string>
+    <string name="offline_body">Sunucuya ulaşılamadı. %1$s tarihinde kaydedilen son veriler gösteriliyor.</string>
+    <string name="overdue_title">GÜNCELLEME GECİKTİ</string>
+    <string name="overdue_body">Şimdiye kadar daha yeni bir resmi değerlendirme yapılmış olmalıydı. Gösterilen sinyal güncel olmayabilir.</string>
+    <string name="history_card_title">Skor geçmişi</string>
+    <string name="history_card_more">Tüm geçmiş ve istatistikler →</string>
+    <string name="history_title">Geçmiş</string>
+    <string name="chart_5y">5Y</string>
+    <string name="chart_all">Tümü</string>
+    <string name="history_signal_strip">Onaylanmış sinyal</string>
+    <string name="history_backfill_note">%1$s öncesindeki değerler yeniden oluşturulmuştur: sabitlenmiş v1.0 modeli, her gün o tarihte mevcut olan verilerle çalıştırıldı. Bu değerler canlı olarak yayımlanmadı.</string>
+    <string name="history_backfill_note_all">Bu değerler yeniden oluşturulmuştur: sabitlenmiş v1.0 modeli, her gün o tarihte mevcut olan verilerle çalıştırıldı. Canlı olarak yayımlanmadılar.</string>
+    <string name="history_report_title">Her sinyalin görülme sıklığı</string>
+    <string name="history_period">Dönem</string>
+    <string name="history_days">İşlem günü</string>
+    <string name="history_changes_per_year">Yılda sinyal değişimi</string>
+    <string name="history_mean_run">Sinyal başına ortalama gün</string>
+    <string name="history_score_range">Skor 10. / 50. / 90. yüzdelik</string>
+    <string name="history_signal_share">Sinyale göre günlerin payı</string>
+    <string name="history_regime_share">Rejime göre günlerin payı</string>
+    <string name="history_report_note">Yalnızca tanımlayıcıdır. Bu istatistikler modeli ayarlamak için asla kullanılmaz; herhangi bir değişiklik yeni bir model sürümü oluşturur.</string>
+    <string name="history_coverage_title">Veri kapsamı</string>
+    <string name="history_coverage_note">Her göstergenin kullanılabilir veriye sahip olduğu günlerin payı. Eksik göstergeler nötr sayılır ve bu, skorları 50\'ye doğru çeker.</string>
+    <string name="data_source_live_option">Canlı veri</string>
+    <string name="data_source_demo_option">Demo veri</string>
+    <string name="server_url_label">Sunucu adresi</string>
+    <string name="server_url_save">Kaydet</string>
+    <string name="server_url_reset">Varsayılana dön</string>
+    <string name="data_health_title">Veri kaynakları</string>
+    <string name="loading">Yükleniyor…</string>
+    <string name="health_latest_eval">Son resmi değerlendirme</string>
+    <string name="health_generated">Veri üretim zamanı</string>
+    <string name="health_note">Ücretsiz veri kaynağı olmayan göstergeler (altın ETF varlıkları, merkez bankası alımları), sunucuya CSV içe aktarımı eklenene kadar eksik kalır.</string>
+
+    <plurals name="business_days">
+        <item quantity="one">%d iş günü</item>
+        <item quantity="other">%d iş günü</item>
+    </plurals>
+    <plurals name="calendar_days">
+        <item quantity="one">%d gün</item>
+        <item quantity="other">%d gün</item>
+    </plurals>
+</resources>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- AppCompat parent is required for per-app language switching on Android 12 and lower.
+         Compose draws all UI; this theme only sets window defaults. -->
+    <style name="Theme.GoldSignal" parent="Theme.AppCompat.DayNight.NoActionBar">
+        <item name="android:windowBackground">@color/window_background</item>
+    </style>
+</resources>

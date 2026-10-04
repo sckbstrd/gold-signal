@@ -1,0 +1,130 @@
+{
+ "as_of": "2026-10-02T23:30:00+00:00",
+ "indicators": [
+  {
+   "code": "REAL_YIELD",
+   "value": 1.74,
+   "changes": {
+    "d1": -3.0,
+    "d7": -11.0,
+    "d30": -28.0
+   },
+   "change_unit": "bp",
+   "trend": "FALLING",
+   "impact": "BULLISH",
+   "points": 20.04,
+   "weight": 30,
+   "tilt": 5.04,
+   "observation_date": "2026-10-01",
+   "age_bdays": 1,
+   "status": "MOCK",
+   "source": "mock"
+  },
+  {
+   "code": "FED",
+   "value": 3.29,
+   "changes": {
+    "d1": -2.0,
+    "d7": -9.0,
+    "d30": -21.0
+   },
+   "change_unit": "bp",
+   "trend": "FALLING",
+   "impact": "BULLISH",
+   "points": 12.95,
+   "weight": 20,
+   "tilt": 2.95,
+   "observation_date": "2026-10-01",
+   "age_bdays": 1,
+   "status": "MOCK",
+   "source": "mock"
+  },
+  {
+   "code": "DXY",
+   "value": 97.4,
+   "changes": {
+    "d1": -0.22,
+    "d7": -0.85,
+    "d30": -1.7
+   },
+   "change_unit": "pct",
+   "trend": "FALLING",
+   "impact": "BULLISH",
+   "points": 9.36,
+   "weight": 15,
+   "tilt": 1.86,
+   "observation_date": "2026-10-02",
+   "age_bdays": 0,
+   "status": "MOCK",
+   "source": "mock"
+  },
+  {
+   "code": "NOMINAL_10Y",
+   "value": 4.45,
+   "changes": {
+    "d1": -2.0,
+    "d7": -7.0,
+    "d30": -16.0
+   },
+   "change_unit": "bp",
+   "trend": "FALLING",
+   "impact": "BEARISH",
+   "points": 4.09,
+   "weight": 10,
+   "tilt": -0.91,
+   "observation_date": "2026-10-01",
+   "age_bdays": 1,
+   "status": "MOCK",
+   "source": "mock"
+  },
+  {
+   "code": "ECON",
+   "value": null,
+   "changes": {},
+   "change_unit": null,
+   "trend": "FLAT",
+   "impact": "NEUTRAL",
+   "points": 5.72,
+   "weight": 10,
+   "tilt": 0.72,
+   "observation_date": "2026-10-02",
+   "age_bdays": 0,
+   "status": "MOCK",
+   "source": "mock"
+  },
+  {
+   "code": "ETF",
+   "value": 1500.5,
+   "changes": {
+    "d7": 0.35,
+    "d30": 1.6,
+    "d90": 2.9
+   },
+   "change_unit": "pct",
+   "trend": "RISING",
+   "impact": "BULLISH",
+   "points": 5.83,
+   "weight": 10,
+   "tilt": 0.83,
+   "observation_date": "2026-10-01",
+   "age_bdays": 1,
+   "status": "MOCK",
+   "source": "mock"
+  },
+  {
+   "code": "CENTRAL_BANKS",
+   "value": 780.0,
+   "changes": {},
+   "change_unit": "tonnes",
+   "trend": "FLAT",
+   "impact": "BULLISH",
+   "points": 3.2,
+   "weight": 5,
+   "tilt": 0.7,
+   "observation_date": "2026-07-01",
+   "age_bdays": 23,
+   "status": "MOCK",
+   "source": "mock"
+  }
+ ]
+}

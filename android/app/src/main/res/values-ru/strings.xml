@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Navigation & common -->
+    <string name="nav_signal">Сигнал</string>
+    <string name="nav_events">События</string>
+    <string name="nav_backtest">Бэктест</string>
+    <string name="nav_settings">Настройки</string>
+    <string name="action_back">Назад</string>
+    <string name="action_retry">Повторить</string>
+    <string name="error_title">Не удалось загрузить данные</string>
+    <string name="none">нет</string>
+
+    <!-- Dashboard -->
+    <string name="dashboard_title">СИГНАЛ ПО ЗОЛОТУ</string>
+    <string name="updated_at">Обновлено: %1$s</string>
+    <string name="mock_title">ДЕМО-ДАННЫЕ</string>
+    <string name="mock_body">Иллюстративные значения, рассчитанные настоящим движком оценки; это не рыночные котировки.</string>
+    <string name="gold_spot">Золото (XAU/USD)</string>
+    <string name="gram_gold">Грамм золота (теоретич.)</string>
+    <string name="change_1d">%1$s за день</string>
+    <string name="distance_from_high">%1$s от 52-недельного максимума (%2$s)</string>
+    <string name="gold_score">Оценка золота</string>
+    <string name="gauge_description">Оценка золота %1$s из 100, %2$s</string>
+    <string name="score_short">Оценка %1$s</string>
+    <string name="signal_since">С %1$s</string>
+    <string name="pending_change">Ожидается %1$s — %2$d из %3$d дн.</string>
+    <string name="confidence_value">Уверенность %1$s</string>
+    <string name="confidence_disclaimer">Уверенность модели — не вероятность будущей доходности.</string>
+    <string name="regime_label">Рыночный режим</string>
+    <string name="factors_title">Что формирует оценку</string>
+    <string name="factors_note">Баллы из веса каждого индикатора. Шкала центрирована на нейтральном значении: вправо — в пользу золота, влево — против.</string>
+    <string name="factor_points">%1$s / %2$s</string>
+    <string name="global_gold">ЗОЛОТО (МИР)</string>
+    <string name="gram_gold_signal">ГРАММ ЗОЛОТА</string>
+    <string name="why_button">Почему?</string>
+    <string name="next_evaluation">Следующая официальная оценка: %1$s</string>
+    <string name="disclaimer">Gold Signal — аналитический инструмент, а не финансовая рекомендация. Он никогда не совершает сделок, и сигнал на покупку не гарантирует прибыль.</string>
+    <string name="model_version">Модель v%1$s</string>
+
+    <!-- Data status -->
+    <string name="data_delayed">ДАННЫЕ ЗАДЕРЖИВАЮТСЯ</string>
+    <string name="data_delayed_body">Критический индикатор недоступен или устарел. Его влияние исключено, уверенность снижена.</string>
+    <string name="data_degraded">ЧАСТЬ ДАННЫХ УСТАРЕВАЕТ</string>
+    <string name="data_degraded_body">Некоторые данные старше обычного или публикация задерживается. Их влияние уменьшено.</string>
+
+    <!-- Signals, regimes -->
+    <string name="signal_strong_buy">СИЛЬНАЯ ПОКУПКА</string>
+    <string name="signal_buy">ПОКУПАТЬ</string>
+    <string name="signal_hold">ДЕРЖАТЬ</string>
+    <string name="signal_reduce">СОКРАЩАТЬ</string>
+    <string name="signal_sell">ПРОДАВАТЬ</string>
+    <string name="regime_gold_bull">БЫЧИЙ РЫНОК ЗОЛОТА</string>
+    <string name="regime_gold_bear">МЕДВЕЖИЙ РЫНОК ЗОЛОТА</string>
+    <string name="regime_transition">ПЕРЕХОДНЫЙ РЕЖИМ</string>
+    <string name="regime_panic">ПАНИКА / ШОК ЛИКВИДНОСТИ</string>
+    <string name="regime_desc_bull">Большинство ключевых макроиндикаторов благоприятны для золота.</string>
+    <string name="regime_desc_bear">Большинство ключевых макроиндикаторов работают против золота.</string>
+    <string name="regime_desc_transition">Индикаторы разнонаправлены или меняют направление.</string>
+    <string name="regime_desc_panic">Экстремальный стресс на рынках: привычные взаимосвязи могут временно нарушаться.</string>
+
+    <!-- Components -->
+    <string name="comp_real_yield">Реальная доходность 10Y США</string>
+    <string name="comp_fed">Ожидания по ФРС</string>
+    <string name="comp_dxy">Доллар США (DXY)</string>
+    <string name="comp_nominal">Доходность 10Y США</string>
+    <string name="comp_econ">Экономические данные США</string>
+    <string name="comp_etf">Потоки золотых ETF</string>
+    <string name="comp_cb">Покупки центробанков</string>
+    <string name="comp_fx">USD/TRY и процентный доход</string>
+    <string name="comp_gram">Грамм золота (TRY)</string>
+
+    <string name="impact_bullish">ПОЗИТИВНО</string>
+    <string name="impact_bearish">НЕГАТИВНО</string>
+    <string name="impact_neutral">НЕЙТРАЛЬНО</string>
+    <string name="trend_label">Тренд</string>
+    <string name="trend_falling">СНИЖАЕТСЯ</string>
+    <string name="trend_rising">РАСТЁТ</string>
+    <string name="trend_flat">БЕЗ ИЗМЕНЕНИЙ</string>
+    <string name="gold_impact">Влияние на золото</string>
+    <string name="status_fresh">актуально</string>
+    <string name="status_aging">устаревает</string>
+    <string name="status_stale">устарело</string>
+    <string name="status_missing">нет данных</string>
+    <string name="status_mock">демо-данные</string>
+
+    <!-- Indicator detail -->
+    <string name="current_value">Текущее значение</string>
+    <string name="fed_path_value">Ожидаемая рынком траектория (ср. 6М и 12М)</string>
+    <string name="label_1d">1Д</string>
+    <string name="label_7d">7Д</string>
+    <string name="label_30d">30Д</string>
+    <string name="label_90d">90Д</string>
+    <string name="label_30d_window">Период: %1$s</string>
+    <string name="contribution">Вклад в оценку</string>
+    <string name="contribution_value">%1$s из %2$s баллов (%3$s к нейтральному)</string>
+    <string name="chart_1m">1М</string>
+    <string name="chart_3m">3М</string>
+    <string name="chart_1y">1Г</string>
+    <string name="how_scored">Как рассчитывается</string>
+    <string name="how_scored_body">Каждое изменение делится на типичное движение для своего горизонта. Движения меньше четверти типичного считаются шумом и игнорируются; результат сжимается в диапазон −1…+1 и взвешивается.</string>
+    <string name="col_horizon">Вход</string>
+    <string name="col_change">Изменение</string>
+    <string name="col_typical">Типичное</string>
+    <string name="col_score">Балл</string>
+    <string name="col_weight">Вес</string>
+    <string name="sub_stance">Заложенное смягчение (12М)</string>
+    <string name="sub_level">Уровень к среднему за год</string>
+    <string name="sub_momentum">Темп за 3 месяца</string>
+    <string name="data_age">Данные на %1$s · давность %2$s · %3$s · источник: %4$s</string>
+
+    <!-- Fed -->
+    <string name="fed_current_title">Текущая политика ФРС</string>
+    <string name="fed_target_range">Целевой диапазон</string>
+    <string name="fed_effr">Эффективная ставка по федеральным фондам</string>
+    <string name="fed_last_decision">Последнее решение</string>
+    <string name="fed_implied_title">Ожидаемая рынком политика ФРС</string>
+    <string name="fed_in_3m">Ближайшие 3 месяца</string>
+    <string name="fed_in_6m">Ближайшие 6 месяцев</string>
+    <string name="fed_in_12m">Ближайшие 12 месяцев</string>
+    <string name="fed_priced">Заложено на 12 месяцев</string>
+    <string name="bp_cuts">снижение на %1$s</string>
+    <string name="bp_hikes">повышение на %1$s</string>
+    <string name="fed_method_tbill">Источник: кривая казначейских векселей (прокси ожидаемой ключевой ставки). Пунктир — середина текущего целевого диапазона.</string>
+    <string name="fed_not_confuse">Текущая политика — это ставка, которую ФРС уже установила. Ожидаемая рынком политика — то, чего рынок ждёт дальше. Золото реагирует в основном на изменения второго.</string>
+    <string name="priced_cuts">на 12 месяцев заложено снижение на %1$s</string>
+    <string name="priced_hikes">на 12 месяцев заложено повышение на %1$s</string>
+
+    <!-- Nominal 10Y -->
+    <string name="nom_decomposition">Номинальная = реальная + инфляционные ожидания</string>
+    <string name="nom_nominal">Номинальная 10Y</string>
+    <string name="nom_real">Реальная 10Y</string>
+    <string name="nom_breakeven">Breakeven (инфл. ожидания)</string>
+    <string name="nom_avg">Среднее за год</string>
+    <string name="nom_z">Стандартных отклонений от среднего</string>
+    <string name="nom_dedup_note">Реальная часть любого движения уже учтена индикатором реальной доходности. Чтобы не считать её дважды, здесь оцениваются только инфляционные ожидания и то, насколько номинальная доходность выше или ниже своей годовой нормы.</string>
+
+    <!-- Economic data -->
+    <string name="econ_recent">Последние публикации</string>
+    <string name="econ_actual">Факт</string>
+    <string name="econ_expected">Прогноз</string>
+    <string name="econ_previous">Пред.</string>
+    <string name="econ_surprise">Сюрприз</string>
+    <string name="econ_delayed">ЗАДЕРЖИВАЕТСЯ</string>
+    <string name="econ_note">Модель оценивает сюрприз (факт − прогноз), а не то, «хорошие» или «плохие» данные. Влияние старых публикаций затухает с периодом полураспада 14 дней.</string>
+
+    <!-- Central banks -->
+    <string name="cb_t12">Чистые покупки за 12 месяцев</string>
+    <string name="cb_t3">Чистые покупки за 3 месяца</string>
+    <string name="cb_baseline">Долгосрочная норма (в год)</string>
+    <string name="cb_note">Долгосрочный индикатор: месячные данные публикуются с задержкой. Максимальное влияние на оценку — ±2,5 балла.</string>
+
+    <!-- Gram gold -->
+    <string name="gram_theoretical">Теоретическая цена грамма</string>
+    <string name="gram_formula">Грамм = XAU/USD ÷ 31,1035 × USD/TRY</string>
+    <string name="gram_usdtry">USD/TRY</string>
+    <string name="gram_market">Рыночная цена грамма</string>
+    <string name="gram_market_na">лицензированная котировка не настроена</string>
+    <string name="gram_decomp_title">Изменение за 30 дней по факторам</string>
+    <string name="gram_decomp_gold">Золото в долларах</string>
+    <string name="gram_fx_leg_title">Валютная часть: USD/TRY и ставки по лире</string>
+    <string name="gram_fx_move">USD/TRY</string>
+    <string name="gram_carry">Доход по лире</string>
+    <string name="gram_excess">Превышение</string>
+    <string name="gram_policy_rates">Ключевые ставки: ЦБ Турции %1$s · ФРС %2$s</string>
+    <string name="gram_tilt">Поправка к глобальной оценке: %1$s балла (макс. ±%2$s)</string>
+    <string name="gram_carry_note">USD/TRY растёт почти каждый месяц. В пользу грамма золота засчитывается только обесценение лиры сверх того, что компенсируют проценты по депозитам в лирах.</string>
+    <string name="gram_two_drivers">У инвестора из Турции два отдельных фактора: мировая цена золота и лира. Одна лишь слабость мирового золота не означает «продавать грамм золота».</string>
+
+    <!-- Why -->
+    <string name="why_title">Почему?</string>
+    <string name="why_tab_global">Золото (мир)</string>
+    <string name="why_tab_gram">Грамм золота</string>
+    <string name="why_signal">Почему сигнал по золоту — %1$s?</string>
+    <string name="why_gram_signal">Почему сигнал по грамму золота — %1$s?</string>
+    <string name="why_score_line">Оценка %1$s / 100 · Уверенность %2$s · %3$s</string>
+    <string name="why_positive">Поддерживающие факторы</string>
+    <string name="why_negative">Негативные факторы</string>
+    <string name="why_neutral">Нейтральные</string>
+    <string name="why_warnings">Замечания к данным</string>
+    <string name="why_conclusion">Вывод</string>
+    <string name="why_generated_note">Сформировано из фактических входных данных модели (модель v%1$s).</string>
+
+    <string name="mag_little">незначительно</string>
+    <string name="mag_moderate">умеренно</string>
+    <string name="mag_significant">значительно</string>
+    <string name="mag_sharp">резко</string>
+
+    <!-- Reasons -->
+    <string name="r_real_yield_falling">Реальные доходности %1$s снизились: %2$s за 30 дней (%3$s за 7 дней).</string>
+    <string name="r_real_yield_rising">Реальные доходности %1$s выросли: %2$s за 30 дней (%3$s за 7 дней).</string>
+    <string name="r_real_yield_flat">Реальные доходности почти не изменились (%1$s за 30 дней).</string>
+    <string name="r_fed_path_lower">Ожидаемые рынком ставки ФРС %1$s снизились: %2$s за 30 дней; %3$s.</string>
+    <string name="r_fed_path_higher">Ожидаемые рынком ставки ФРС %1$s выросли: %2$s за 30 дней; %3$s.</string>
+    <string name="r_fed_path_stable">Ожидаемые рынком ставки ФРС почти не изменились; %1$s.</string>
+    <string name="r_dxy_falling">Доллар США (DXY) %1$s слабеет: %2$s за 30 дней.</string>
+    <string name="r_dxy_rising">Доллар США (DXY) %1$s укрепляется: %2$s за 30 дней.</string>
+    <string name="r_dxy_flat">Доллар США (DXY) почти не изменился (%1$s за 30 дней).</string>
+    <string name="r_nominal_level_elevated">Номинальная доходность 10-летних облигаций повышена: %1$s, на %2$s ст. откл. выше среднего за год.</string>
+    <string name="r_nominal_level_low">Номинальная доходность 10-летних облигаций низкая: %1$s, на %2$s ст. откл. ниже среднего за год.</string>
+    <string name="r_breakevens_rising">Инфляционные ожидания (10-летний breakeven) растут: %1$s за 30 дней.</string>
+    <string name="r_breakevens_falling">Инфляционные ожидания (10-летний breakeven) снижаются: %1$s за 30 дней.</string>
+    <string name="r_nominal_neutral">Номинальная доходность 10Y (%1$s) не является значимым фактором; инфляционные ожидания изменились на %2$s за 30 дней.</string>
+    <string name="r_econ_dovish">Данные по США преподнесли «голубиный» сюрприз: %1$s — %2$s при прогнозе %3$s.</string>
+    <string name="r_econ_hawkish">Данные по США преподнесли «ястребиный» сюрприз: %1$s — %2$s при прогнозе %3$s.</string>
+    <string name="r_econ_mixed">Экономические данные неоднозначны (в пользу золота: %1$s; против: %2$s).</string>
+    <string name="r_econ_quiet">За последние 60 дней значимых сюрпризов в данных по США не было.</string>
+    <string name="r_etf_inflows">Запасы золотых ETF растут: %1$s за 30 дней.</string>
+    <string name="r_etf_outflows">Запасы золотых ETF сокращаются: %1$s за 30 дней.</string>
+    <string name="r_etf_stable">Запасы золотых ETF стабильны (%1$s за 30 дней).</string>
+    <string name="r_cb_strong">Покупки золота центробанками остаются высокими: %1$s за 12 месяцев.</string>
+    <string name="r_cb_weak">Покупки золота центробанками слабые: %1$s за 12 месяцев.</string>
+    <string name="r_cb_normal">Покупки золота центробанками близки к долгосрочной норме: %1$s за 12 месяцев.</string>
+    <string name="r_gram_global_driver">Глобальный сигнал по золоту: %1$s (оценка %2$s).</string>
+    <string name="r_gram_fx_weaker">Лира слабеет быстрее, чем компенсируют ставки по ней: USD/TRY %1$s против дохода по лире %2$s за 30 дней.</string>
+    <string name="r_gram_fx_stronger">Ставки по лире с запасом компенсируют её ослабление: USD/TRY %1$s против дохода по лире %2$s за 30 дней.</string>
+    <string name="r_gram_fx_in_line">USD/TRY движется в соответствии с процентным доходом (%1$s против %2$s за 30 дней), поэтому валютная часть нейтральна.</string>
+
+    <string name="w_component_aging">Данные «%1$s» устаревают (давность %2$s); их влияние снижено.</string>
+    <string name="w_component_stale">Данные «%1$s» устарели (давность %2$s) и больше не влияют на оценку.</string>
+    <string name="w_component_missing">Данные «%1$s» недоступны и считаются нейтральными.</string>
+    <string name="w_release_delayed">Публикация «%1$s», ожидавшаяся %2$s, задерживается.</string>
+    <string name="w_panic">Экстремальный стресс на рынках: привычные взаимосвязи могут временно нарушаться.</string>
+    <string name="w_demo_data">Демо-данные.</string>
+    <string name="w_coverage_gap">Данные «%1$s» отсутствовали в %2$s дней и считались нейтральными.</string>
+
+    <string name="c_most_favor">Большинство ключевых макрофакторов сейчас благоприятны для золота.</string>
+    <string name="c_most_favor_with_risk">Большинство ключевых макрофакторов сейчас благоприятны для золота, но фактор «%1$s» остаётся риском.</string>
+    <string name="c_most_oppose">Большинство ключевых макрофакторов сейчас работают против золота.</string>
+    <string name="c_most_oppose_with_support">Большинство ключевых макрофакторов сейчас работают против золота, хотя фактор «%1$s» по-прежнему его поддерживает.</string>
+    <string name="c_hold_mixed">Макрофакторы разнонаправлены: «%1$s» поддерживает золото, а «%2$s» давит на него.</string>
+    <string name="c_hold_leaning_positive">Решающего сигнала пока нет; условия слегка в пользу золота.</string>
+    <string name="c_hold_leaning_negative">Решающего сигнала пока нет; условия слегка против золота.</string>
+    <string name="c_hold_quiet">Макрофакторы близки к нейтральным; ничего решающего.</string>
+    <string name="c_panic_caution">Рынки находятся в стрессовом режиме; сигналы менее надёжны, чем обычно.</string>
+    <string name="c_gram_follows_global">Грамм золота следует глобальному сигналу; валютная часть нейтральна.</string>
+    <string name="c_gram_fx_driven_positive">Мировое золото нейтрально; лира поднимает сигнал по грамму золота.</string>
+    <string name="c_gram_fx_driven_negative">Мировое золото нейтрально; лира тянет сигнал по грамму золота вниз.</string>
+    <string name="c_gram_aligned">Мировое золото и лира указывают в одном направлении.</string>
+    <string name="c_gram_offset">Мировое золото и лира тянут в разные стороны и частично компенсируют друг друга.</string>
+
+    <!-- Events -->
+    <string name="events_title">Экономический календарь США</string>
+    <string name="events_upcoming">Предстоящие</string>
+    <string name="events_released">Опубликованные</string>
+    <string name="events_tz_note">Время указано в часовом поясе вашего устройства.</string>
+    <string name="event_cpi_yoy">ИПЦ (г/г)</string>
+    <string name="event_core_cpi_mom">Базовый ИПЦ (м/м)</string>
+    <string name="event_pce_yoy">PCE (г/г)</string>
+    <string name="event_core_pce_mom">Базовый PCE (м/м)</string>
+    <string name="event_nfp">Занятость вне с/х (NFP)</string>
+    <string name="event_unemployment">Уровень безработицы</string>
+    <string name="event_initial_claims">Первичные заявки на пособие</string>
+    <string name="event_ism_mfg">ISM в промышленности</string>
+    <string name="event_ism_services">ISM в сфере услуг</string>
+    <string name="event_fomc">Решение FOMC</string>
+
+    <!-- Backtest -->
+    <string name="backtest_title">Бэктест</string>
+    <string name="bt_start">Начало (ГГГГ-ММ-ДД)</string>
+    <string name="bt_end">Конец (ГГГГ-ММ-ДД)</string>
+    <string name="bt_capital">Капитал (USD)</string>
+    <string name="bt_cost">Издержки / сделка (б.п.)</string>
+    <string name="bt_run">Запустить бэктест</string>
+    <string name="bt_invalid_date">Введите даты в формате ГГГГ-ММ-ДД.</string>
+    <string name="bt_invalid_range">Дата окончания должна быть позже даты начала.</string>
+    <string name="bt_invalid_capital">Введите положительную сумму капитала.</string>
+    <string name="bt_invalid_cost">Введите издержки от 0 до 500 б.п.</string>
+    <string name="bt_rules" formatted="false">Правила: сигнал на закрытии одного дня исполняется на закрытии следующего. ПОКУПАТЬ / СИЛЬНАЯ ПОКУПКА = 100% золото, СОКРАЩАТЬ / ПРОДАВАТЬ = кэш, ДЕРЖАТЬ сохраняет текущую позицию. Используются только данные, доступные на каждую дату; версия модели зафиксирована.</string>
+    <string name="bt_demo_title">ДЕМО — НЕ ИСТОРИЧЕСКИЙ РЕЗУЛЬТАТ</string>
+    <string name="bt_demo_body">Синтетические цены и оценки прогнаны через настоящие правила сигнала, чтобы можно было оценить экран. Настоящий бэктест появится в фазе 6. Демо всегда охватывает период %1$s – %2$s; применяется только введённый капитал.</string>
+    <string name="bt_strategy">Gold Signal</string>
+    <string name="bt_buy_hold">Купить и держать</string>
+    <string name="bt_final">Итоговая стоимость</string>
+    <string name="bt_total_return">Общая доходность</string>
+    <string name="bt_cagr">Годовая доходность</string>
+    <string name="bt_mdd">Макс. просадка</string>
+    <string name="bt_sharpe">Коэффициент Шарпа</string>
+    <string name="bt_trades">Сделки</string>
+    <string name="bt_win_rate">Доля прибыльных</string>
+    <string name="bt_avg_gain">Средняя прибыль</string>
+    <string name="bt_avg_loss">Средний убыток</string>
+    <string name="bt_best">Лучшая сделка</string>
+    <string name="bt_worst">Худшая сделка</string>
+    <string name="bt_invested">Время в позиции</string>
+    <string name="bt_equity">Кривая капитала</string>
+    <string name="bt_open">открыта</string>
+
+    <!-- Settings -->
+    <string name="settings_title">Настройки</string>
+    <string name="settings_language">Язык</string>
+    <string name="lang_system">Как в системе</string>
+    <string name="settings_data_source">Источник данных</string>
+    <string name="data_source_mock">Встроенные иллюстративные данные, рассчитанные настоящим движком оценки. Интернет не нужен; это не рыночные данные.</string>
+    <string name="data_source_live">Официальные оценки, которые сервер Gold Signal публикует после каждого торгового дня в США (23:30 UTC). Данные сохраняются для работы офлайн.</string>
+    <string name="settings_alerts">Уведомления</string>
+    <string name="alerts_phase7">Уведомления о смене сигнала, крупных изменениях оценки, смене режима, важных данных по США, решениях ФРС и экстремальных событиях появятся в фазе 7.</string>
+    <string name="settings_about">О приложении</string>
+    <string name="about_body">Gold Signal анализирует основные макрофакторы золота (реальные доходности, ожидания по ФРС, доллар, номинальные доходности, сюрпризы в данных по США, потоки ETF и покупки центробанков) и объединяет их в прозрачную оценку от 0 до 100. Правила фиксированы и версионированы: одинаковые данные всегда дают одинаковый результат.</string>
+    <string name="about_confidence">Уверенность отражает согласованность индикаторов, свежесть данных, устойчивость сигнала и величину движений. Это не вероятность роста золота.</string>
+    <string name="about_no_trading">Приложение никогда не совершает сделок. Это только инструмент поддержки решений.</string>
+    <string name="about_app_version">Версия приложения</string>
+    <string name="about_translation_note">Переводы на турецкий и русский перед публичным выпуском должен проверить носитель языка.</string>
+
+    <!-- Phase 4/5 -->
+    <string name="action_refresh">Обновить</string>
+    <string name="use_demo_data">Использовать демо-данные</string>
+    <string name="offline_title">НЕТ СОЕДИНЕНИЯ</string>
+    <string name="offline_body">Сервер недоступен. Показаны последние сохранённые данные от %1$s.</string>
+    <string name="overdue_title">ОБНОВЛЕНИЕ ЗАДЕРЖИВАЕТСЯ</string>
+    <string name="overdue_body">К этому времени уже должна быть более новая официальная оценка. Показанный сигнал может быть устаревшим.</string>
+    <string name="history_card_title">История оценки</string>
+    <string name="history_card_more">Вся история и статистика →</string>
+    <string name="history_title">История</string>
+    <string name="chart_5y">5Л</string>
+    <string name="chart_all">Всё</string>
+    <string name="history_signal_strip">Подтверждённый сигнал</string>
+    <string name="history_backfill_note">Значения до %1$s восстановлены: зафиксированная модель v1.0 прогонялась день за днём на данных, доступных на тот момент. Они не публиковались в реальном времени.</string>
+    <string name="history_backfill_note_all">Эти значения восстановлены: зафиксированная модель v1.0 прогонялась день за днём на данных, доступных на тот момент. Они не публиковались в реальном времени.</string>
+    <string name="history_report_title">Как часто встречался каждый сигнал</string>
+    <string name="history_period">Период</string>
+    <string name="history_days">Торговых дней</string>
+    <string name="history_changes_per_year">Смен сигнала в год</string>
+    <string name="history_mean_run">Среднее число дней на сигнал</string>
+    <string name="history_score_range">Оценка: 10-й / 50-й / 90-й перцентиль</string>
+    <string name="history_signal_share">Доля дней по сигналам</string>
+    <string name="history_regime_share">Доля дней по режимам</string>
+    <string name="history_report_note">Только для описания. Эта статистика никогда не используется для подстройки модели; любое изменение создаёт новую версию модели.</string>
+    <string name="history_coverage_title">Покрытие данными</string>
+    <string name="history_coverage_note">Доля дней, когда у индикатора были пригодные данные. Отсутствующие индикаторы считаются нейтральными, что тянет оценку к 50.</string>
+    <string name="data_source_live_option">Данные в реальном времени</string>
+    <string name="data_source_demo_option">Демо-данные</string>
+    <string name="server_url_label">Адрес сервера</string>
+    <string name="server_url_save">Сохранить</string>
+    <string name="server_url_reset">Сбросить</string>
+    <string name="data_health_title">Источники данных</string>
+    <string name="loading">Загрузка…</string>
+    <string name="health_latest_eval">Последняя официальная оценка</string>
+    <string name="health_generated">Данные сформированы</string>
+    <string name="health_note">Индикаторы без бесплатного источника (запасы золотых ETF, покупки центробанков) остаются без данных, пока на сервер не добавлен CSV-импорт.</string>
+
+    <plurals name="business_days">
+        <item quantity="one">%d рабочий день</item>
+        <item quantity="few">%d рабочих дня</item>
+        <item quantity="many">%d рабочих дней</item>
+        <item quantity="other">%d рабочего дня</item>
+    </plurals>
+    <plurals name="calendar_days">
+        <item quantity="one">%d день</item>
+        <item quantity="few">%d дня</item>
+        <item quantity="many">%d дней</item>
+        <item quantity="other">%d дня</item>
+    </plurals>
+</resources>

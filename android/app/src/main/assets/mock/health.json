@@ -1,0 +1,132 @@
+{
+ "generated_at": "2026-10-02T23:45:00+00:00",
+ "data_status": "OK",
+ "sources": [
+  {
+   "code": "mock",
+   "name": "Illustrative demo data (worked example)",
+   "kind": "MOCK",
+   "last_success_at": "2026-10-02T23:45:00+00:00",
+   "last_error_at": null,
+   "last_error": null,
+   "rows_last_run": 4488
+  }
+ ],
+ "series": [
+  {
+   "code": "US_REAL_10Y",
+   "source": "US Treasury real yield curve",
+   "first_observation": "2025-07-01",
+   "last_observation": "2026-10-01",
+   "age_bdays": 1,
+   "status": "FRESH"
+  },
+  {
+   "code": "US_NOM_10Y",
+   "source": "US Treasury par yield curve",
+   "first_observation": "2025-07-01",
+   "last_observation": "2026-10-01",
+   "age_bdays": 1,
+   "status": "FRESH"
+  },
+  {
+   "code": "US_TBILL_3M",
+   "source": "US Treasury par yield curve",
+   "first_observation": "2025-07-01",
+   "last_observation": "2026-10-01",
+   "age_bdays": 1,
+   "status": "FRESH"
+  },
+  {
+   "code": "US_TBILL_6M",
+   "source": "US Treasury par yield curve",
+   "first_observation": "2025-07-01",
+   "last_observation": "2026-10-01",
+   "age_bdays": 1,
+   "status": "FRESH"
+  },
+  {
+   "code": "US_TBILL_1Y",
+   "source": "US Treasury par yield curve",
+   "first_observation": "2025-07-01",
+   "last_observation": "2026-10-01",
+   "age_bdays": 1,
+   "status": "FRESH"
+  },
+  {
+   "code": "FED_TARGET_LOWER",
+   "source": "NY Fed reference rates",
+   "first_observation": "2025-07-01",
+   "last_observation": "2026-10-01",
+   "age_bdays": 1,
+   "status": "FRESH"
+  },
+  {
+   "code": "FED_TARGET_UPPER",
+   "source": "NY Fed reference rates",
+   "first_observation": "2025-07-01",
+   "last_observation": "2026-10-01",
+   "age_bdays": 1,
+   "status": "FRESH"
+  },
+  {
+   "code": "EFFR",
+   "source": "NY Fed reference rates",
+   "first_observation": "2025-07-01",
+   "last_observation": "2026-10-01",
+   "age_bdays": 1,
+   "status": "FRESH"
+  },
+  {
+   "code": "DXY",
+   "source": "ICE US Dollar Index via Yahoo",
+   "first_observation": "2025-07-01",
+   "last_observation": "2026-10-02",
+   "age_bdays": 0,
+   "status": "FRESH"
+  },
+  {
+   "code": "VIX",
+   "source": "Cboe VIX via Yahoo",
+   "first_observation": "2025-07-01",
+   "last_observation": "2026-10-02",
+   "age_bdays": 0,
+   "status": "FRESH"
+  },
+  {
+   "code": "XAUUSD",
+   "source": "COMEX gold futures (GC=F) via Yahoo",
+   "first_observation": "2025-07-01",
+   "last_observation": "2026-10-02",
+   "age_bdays": 0,
+   "status": "FRESH"
+  },
+  {
+   "code": "USDTRY",
+   "source": "ECB reference rate via Frankfurter",
+   "first_observation": "2025-07-01",
+   "last_observation": "2026-10-02",
+   "age_bdays": 0,
+   "status": "FRESH"
+  },
+  {
+   "code": "TCMB_POLICY_RATE",
+   "source": "TCMB one-week repo",
+   "first_observation": "2025-07-01",
+   "last_observation": "2026-10-02",
+   "age_bdays": 0,
+   "status": "FRESH"
+  },
+  {
+   "code": "ETF_HOLDINGS_T",
+   "source": "CSV import",
+   "first_observation": "2025-07-01",
+   "last_observation": "2026-10-01",
+   "age_bdays": 1,
+   "status": "FRESH"
+  }
+ ],
+ "recent_issues": [],
+ "latest_official_date": "2026-10-02",
+ "signal_overdue": false
+}

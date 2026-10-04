@@ -1,0 +1,250 @@
+{
+ "model_version": "1.0.0",
+ "params_sha256": "56ef04fc7ea8e47983323c783e0fb589561a688e66e37a69485072730e21dc95",
+ "inputs_sha256": "f9abb61f8c63d14b2f46e0233fae193cffe1a2cd264c68eca9a48525fadecc11",
+ "evaluated_at": "2026-10-02T23:30:00+00:00",
+ "as_of_date": "2026-10-02",
+ "is_official": true,
+ "next_official_evaluation": "2026-10-05T23:30:00+00:00",
+ "data_status": "OK",
+ "global": {
+  "score": 61.2,
+  "raw_band": "BUY",
+  "signal": "BUY",
+  "previous_signal": "HOLD",
+  "signal_since": "2026-09-25",
+  "pending": null,
+  "confidence": 68,
+  "confidence_parts": {
+   "agreement": 0.8607,
+   "magnitude": 0.52,
+   "freshness": 1.0,
+   "persistence": 0.6
+  },
+  "explanation": {
+   "headline": {
+    "code": "WHY_SIGNAL",
+    "params": {
+     "signal": "BUY"
+    }
+   },
+   "positive": [
+    {
+     "code": "REAL_YIELD_FALLING",
+     "magnitude": "MODERATE",
+     "params": {
+      "value_pct": 1.74,
+      "d30_bp": -28.0,
+      "d7_bp": -11.0
+     }
+    },
+    {
+     "code": "FED_PATH_LOWER",
+     "magnitude": "MODERATE",
+     "params": {
+      "d30_bp": -21.0,
+      "priced_12m_bp": -44.5
+     }
+    },
+    {
+     "code": "DXY_FALLING",
+     "magnitude": "MODERATE",
+     "params": {
+      "value": 97.4,
+      "d30_pct": -1.7
+     }
+    },
+    {
+     "code": "ETF_INFLOWS",
+     "magnitude": "MODERATE",
+     "params": {
+      "d30_pct": 1.6
+     }
+    },
+    {
+     "code": "CB_BUYING_STRONG",
+     "magnitude": "MODERATE",
+     "params": {
+      "t12_tonnes": 780.0
+     }
+    }
+   ],
+   "neutral": [
+    {
+     "code": "ECON_MIXED",
+     "params": {
+      "top_positive": "NFP",
+      "top_negative": "CPI_YOY"
+     }
+    }
+   ],
+   "negative": [
+    {
+     "code": "NOMINAL_LEVEL_ELEVATED",
+     "magnitude": "MODERATE",
+     "params": {
+      "level_pct": 4.45,
+      "z_level": 2.14
+     }
+    }
+   ],
+   "warnings": [],
+   "conclusion": {
+    "code": "MOST_FAVOR_WITH_RISK",
+    "params": {
+     "risk": "NOMINAL_10Y"
+    }
+   }
+  },
+  "regime": "GOLD_BULL",
+  "regime_pending": null,
+  "components": [
+   {
+    "code": "REAL_YIELD",
+    "weight": 30,
+    "s": 0.3358,
+    "freshness": 1.0,
+    "points": 20.04,
+    "tilt": 5.04,
+    "impact": "BULLISH",
+    "status": "FRESH"
+   },
+   {
+    "code": "FED",
+    "weight": 20,
+    "s": 0.2946,
+    "freshness": 1.0,
+    "points": 12.95,
+    "tilt": 2.95,
+    "impact": "BULLISH",
+    "status": "FRESH"
+   },
+   {
+    "code": "DXY",
+    "weight": 15,
+    "s": 0.2475,
+    "freshness": 1.0,
+    "points": 9.36,
+    "tilt": 1.86,
+    "impact": "BULLISH",
+    "status": "FRESH"
+   },
+   {
+    "code": "NOMINAL_10Y",
+    "weight": 10,
+    "s": -0.1811,
+    "freshness": 1.0,
+    "points": 4.09,
+    "tilt": -0.91,
+    "impact": "BEARISH",
+    "status": "FRESH"
+   },
+   {
+    "code": "ECON",
+    "weight": 10,
+    "s": 0.1449,
+    "freshness": 1.0,
+    "points": 5.72,
+    "tilt": 0.72,
+    "impact": "NEUTRAL",
+    "status": "FRESH"
+   },
+   {
+    "code": "ETF",
+    "weight": 10,
+    "s": 0.1667,
+    "freshness": 1.0,
+    "points": 5.83,
+    "tilt": 0.83,
+    "impact": "BULLISH",
+    "status": "FRESH"
+   },
+   {
+    "code": "CENTRAL_BANKS",
+    "weight": 5,
+    "s": 0.2791,
+    "freshness": 1.0,
+    "points": 3.2,
+    "tilt": 0.7,
+    "impact": "BULLISH",
+    "status": "FRESH"
+   }
+  ]
+ },
+ "gram_try": {
+  "score": 61.2,
+  "raw_band": "BUY",
+  "signal": "BUY",
+  "previous_signal": "HOLD",
+  "signal_since": "2026-09-18",
+  "pending": null,
+  "confidence": 68,
+  "confidence_parts": {
+   "global_confidence": 68,
+   "fx_freshness": 1.0,
+   "legs_agree": true
+  },
+  "explanation": {
+   "headline": {
+    "code": "WHY_GRAM_SIGNAL",
+    "params": {
+     "signal": "BUY"
+    }
+   },
+   "positive": [
+    {
+     "code": "GRAM_GLOBAL_DRIVER",
+     "params": {
+      "global_signal": "BUY",
+      "global_score": 61.2
+     }
+    }
+   ],
+   "neutral": [
+    {
+     "code": "GRAM_FX_IN_LINE_WITH_CARRY",
+     "params": {
+      "d30_pct": 1.85,
+      "carry_30d_pct": 2.25,
+      "excess_30d_pct": -0.4
+     }
+    }
+   ],
+   "negative": [],
+   "warnings": [],
+   "conclusion": {
+    "code": "GRAM_FOLLOWS_GLOBAL",
+    "params": {}
+   }
+  },
+  "global_score": 61.2,
+  "fx_leg": {
+   "s": 0.0,
+   "freshness": 1.0,
+   "status": "FRESH",
+   "age_bdays": 0,
+   "usdtry": 49.85,
+   "observation_date": "2026-10-02",
+   "usdtry_change_pct": {
+    "d1": 0.05,
+    "d7": 0.42,
+    "d30": 1.85
+   },
+   "carry_pct": {
+    "d1": 0.075,
+    "d7": 0.525,
+    "d30": 2.25
+   },
+   "excess_pct": {
+    "d1": -0.025,
+    "d7": -0.105,
+    "d30": -0.4
+   },
+   "i_try_pct": 31.0,
+   "i_usd_pct": 3.625,
+   "tilt_points": 0.0,
+   "max_tilt": 25.0
+  }
+ },
+ "disclaimer_code": "NOT_FINANCIAL_ADVICE"
+}

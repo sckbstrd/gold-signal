@@ -1,0 +1,66 @@
+{
+ "model_version": "1.0.0",
+ "params_sha256": "56ef04fc7ea8e47983323c783e0fb589561a688e66e37a69485072730e21dc95",
+ "first_date": "2025-08-01",
+ "last_date": "2026-10-02",
+ "days": 295,
+ "origin_share": {
+  "BACKFILL": 99.7,
+  "LIVE": 0.3
+ },
+ "signal_share": {
+  "BUY": 2.0,
+  "HOLD": 98.0
+ },
+ "raw_band_share": {
+  "BUY": 2.0,
+  "HOLD": 98.0
+ },
+ "regime_share": {
+  "GOLD_BULL": 2.0,
+  "TRANSITION": 98.0
+ },
+ "gram_signal_share": {
+  "BUY": 2.0,
+  "HOLD": 98.0
+ },
+ "signal_changes": 1,
+ "changes_per_year": 0.9,
+ "mean_run_days": 147.5,
+ "score": {
+  "mean": 50.9,
+  "p10": 50.0,
+  "p50": 50.3,
+  "p90": 50.7,
+  "min": 49.6,
+  "max": 72.0
+ },
+ "component_coverage": {
+  "REAL_YIELD": 100.0,
+  "FED": 100.0,
+  "DXY": 100.0,
+  "NOMINAL_10Y": 100.0,
+  "ECON": 7.1,
+  "ETF": 100.0,
+  "CENTRAL_BANKS": 22.7
+ },
+ "by_year": {
+  "2025": {
+   "days": 106,
+   "mean_score": 50.0,
+   "buy_share": 0.0,
+   "sell_share": 0.0,
+   "signal_changes": 0
+  },
+  "2026": {
+   "days": 189,
+   "mean_score": 51.4,
+   "buy_share": 3.2,
+   "sell_share": 0.0,
+   "signal_changes": 1
+  }
+ },
+ "notes": [
+  "BACKFILL_IS_RECONSTRUCTED"
+ ]
+}

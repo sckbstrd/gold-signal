@@ -1,0 +1,80 @@
+{
+  "version": "1.0.0",
+  "dead_zone": 0.25,
+  "kappa": 2.0,
+  "round_component": 4,
+  "neutral_threshold": 0.15,
+  "weights": {
+    "REAL_YIELD": 30,
+    "FED": 20,
+    "DXY": 15,
+    "NOMINAL_10Y": 10,
+    "ECON": 10,
+    "ETF": 10,
+    "CENTRAL_BANKS": 5
+  },
+  "critical": ["REAL_YIELD", "FED", "DXY"],
+  "major": ["REAL_YIELD", "FED", "DXY", "NOMINAL_10Y", "ECON"],
+  "bands": { "STRONG_BUY": 75, "BUY": 60, "HOLD": 40, "REDUCE": 25, "SELL": 0 },
+  "hysteresis": { "buffer": 3.0, "days": 3, "decisive": 10.0 },
+  "freshness": {
+    "REAL_YIELD": [2, 7],
+    "FED": [2, 7],
+    "DXY": [2, 7],
+    "NOMINAL_10Y": [2, 7],
+    "ETF": [5, 15],
+    "CENTRAL_BANKS": [55, 110],
+    "USDTRY": [2, 7]
+  },
+  "components": {
+    "REAL_YIELD": { "horizons_days": [1, 7, 30], "sigmas": [5, 12, 25], "weights": [0.2, 0.3, 0.5], "direction": -1 },
+    "FED": {
+      "horizons_days": [1, 7, 30], "sigmas": [4, 10, 22], "weights": [0.2, 0.3, 0.5], "direction": -1,
+      "repricing_weight": 0.7, "stance_weight": 0.3, "stance_scale_bp": 50
+    },
+    "DXY": { "horizons_days": [1, 7, 30], "sigmas": [0.45, 1.0, 2.1], "weights": [0.2, 0.3, 0.5], "direction": -1 },
+    "NOMINAL_10Y": {
+      "horizons_days": [1, 7, 30], "be_sigmas": [3, 7, 15], "weights": [0.2, 0.3, 0.5],
+      "be_weight": 0.6, "level_weight": 0.4, "level_window_obs": 252, "level_min_obs": 60, "level_std_floor_pct": 0.10
+    },
+    "ECON": {
+      "half_life_days": 14.0, "window_days": 60, "min_mass": 2.0,
+      "delayed_freshness": 0.5, "delayed_min_importance": 0.8, "delayed_grace_hours": 2, "delayed_lookback_days": 10,
+      "events": {
+        "CPI_YOY":        { "direction": -1, "sigma": 0.1,  "importance": 0.7 },
+        "CORE_CPI_MOM":   { "direction": -1, "sigma": 0.1,  "importance": 1.0 },
+        "PCE_YOY":        { "direction": -1, "sigma": 0.1,  "importance": 0.5 },
+        "CORE_PCE_MOM":   { "direction": -1, "sigma": 0.1,  "importance": 0.8 },
+        "NFP":            { "direction": -1, "sigma": 75.0, "importance": 1.0 },
+        "UNEMPLOYMENT":   { "direction": 1,  "sigma": 0.1,  "importance": 0.8 },
+        "INITIAL_CLAIMS": { "direction": 1,  "sigma": 15.0, "importance": 0.3 },
+        "ISM_MFG":        { "direction": -1, "sigma": 2.0,  "importance": 0.5 },
+        "ISM_SERVICES":   { "direction": -1, "sigma": 2.0,  "importance": 0.5 }
+      }
+    },
+    "ETF": { "horizons_days": [7, 30, 90], "sigmas": [1.0, 2.5, 5.0], "weights": [0.1, 0.5, 0.4], "direction": 1 },
+    "CENTRAL_BANKS": {
+      "baseline_t": 500, "level_scale_t": 250, "momentum_scale_t": 400,
+      "level_weight": 0.7, "momentum_weight": 0.3
+    }
+  },
+  "magnitude_words": [[0.15, "LITTLE"], [0.45, "MODERATE"], [0.75, "SIGNIFICANT"]],
+  "confidence": {
+    "w_agreement": 0.40, "w_magnitude": 0.30, "w_persistence": 0.30,
+    "magnitude_full": 0.5, "persistence_full_days": 10, "panic_multiplier": 0.6, "delayed_cap": 40
+  },
+  "regime": {
+    "breadth_threshold": 0.15, "breadth_min": 0.6, "bull_score_min": 55, "bear_score_max": 45,
+    "reversal_points": 12, "reversal_lookback": 20, "confirm_days": 3, "panic_exit_days": 5,
+    "panic": {
+      "vix_level": 35, "vix_spike_level": 25, "vix_spike_change_pct": 50,
+      "gold_1d_abs_pct": 4, "gold_5d_pct": -6, "gold_5d_vix_min": 25, "dxy_1d_pct": 1.5
+    }
+  },
+  "gram": {
+    "troy_oz_grams": 31.1034768,
+    "fx_horizons_days": [1, 7, 30], "fx_sigmas": [0.5, 1.2, 2.5], "fx_weights": [0.2, 0.3, 0.5],
+    "fx_tilt_max": 25.0, "conf_base": 0.7, "conf_agree_bonus": 0.3, "global_neutral_band": 5.0
+  },
+  "state": { "score_history_len": 25 }
+}

@@ -1,0 +1,59 @@
+# Runs the backend after every US trading day and publishes the API as a static site on GitHub Pages.
+# State (official signal log, engine state, captured consensus, market cache) is carried between runs
+# through the published site itself, so the official history is append-only.
+name: Publish signal
+
+on:
+  schedule:
+    - cron: "45 23 * * 1-5"   # official evaluation (23:30 UTC) + margin, Mon-Fri
+    - cron: "0 22 * * 0"      # Sunday: capture the new week's consensus forecasts early
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: publish
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    defaults:
+      run:
+        working-directory: backend
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: backend/requirements.txt
+      - run: pip install -r requirements.txt
+
+      - name: Fetch previous state from the published site
+        run: |
+          mkdir -p prev
+          base="https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/state"
+          for f in engine_state.json signals.json econ_events.json market.json.gz; do
+            curl -sfL "$base/$f" -o "prev/$f" || echo "no previous $f (first run?)"
+          done
+          ls -la prev
+
+      - name: Tests
+        run: python -m pytest -q -p no:cacheprovider
+
+      - name: Ingest, evaluate, render
+        run: python -m app.cli run --previous-state prev --export ../site --repo "${{ github.repository }}"
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+      - id: deployment
+        uses: actions/deploy-pages@v4

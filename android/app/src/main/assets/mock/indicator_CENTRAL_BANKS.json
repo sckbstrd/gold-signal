@@ -1,0 +1,98 @@
+{
+ "code": "CENTRAL_BANKS",
+ "value": 780.0,
+ "unit": "tonnes",
+ "changes": {},
+ "change_unit": "tonnes",
+ "trend": "FLAT",
+ "impact": "BULLISH",
+ "contribution": {
+  "points": 3.2,
+  "weight": 5,
+  "tilt": 0.7,
+  "s": 0.2791,
+  "freshness": 1.0,
+  "s_eff": 0.2791
+ },
+ "sub_scores": [
+  {
+   "key": "level",
+   "delta": 280.0,
+   "sigma": 250,
+   "z": 1.12,
+   "score": 0.4095,
+   "weight": 0.7,
+   "missing": false
+  },
+  {
+   "key": "momentum",
+   "delta": -120.0,
+   "sigma": 400,
+   "z": -0.3,
+   "score": -0.025,
+   "weight": 0.3,
+   "missing": false
+  }
+ ],
+ "series": [],
+ "observation_date": "2026-07-01",
+ "age_bdays": 23,
+ "status": "MOCK",
+ "source": "mock",
+ "extra": {
+  "t12_tonnes": 780.0,
+  "t3_tonnes": 165.0,
+  "baseline_tonnes": 500,
+  "published": "2026-08-31",
+  "monthly": [
+   [
+    "2025-08",
+    70.0
+   ],
+   [
+    "2025-09",
+    65.0
+   ],
+   [
+    "2025-10",
+    72.0
+   ],
+   [
+    "2025-11",
+    68.0
+   ],
+   [
+    "2025-12",
+    75.0
+   ],
+   [
+    "2026-01",
+    66.0
+   ],
+   [
+    "2026-02",
+    64.0
+   ],
+   [
+    "2026-03",
+    70.0
+   ],
+   [
+    "2026-04",
+    65.0
+   ],
+   [
+    "2026-05",
+    50.0
+   ],
+   [
+    "2026-06",
+    60.0
+   ],
+   [
+    "2026-07",
+    55.0
+   ]
+  ]
+ }
+}

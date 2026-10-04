@@ -1,0 +1,20 @@
+# Android
+android/.gradle/
+android/build/
+android/app/build/
+android/local.properties
+android/.idea/
+android/.kotlin/
+*.iml
+
+# Python
+backend/.venv/
+backend/data/*.db
+backend/data/*.db-*
+__pycache__/
+.pytest_cache/
+
+# Local build artefacts (APKs are published as GitHub releases)
+*.apk
+*.zip
+site/
