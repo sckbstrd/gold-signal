@@ -40,8 +40,8 @@
     <!-- Data status -->
     <string name="data_delayed">VERİ GECİKMESİ</string>
     <string name="data_delayed_body">Kritik bir gösterge mevcut değil veya eski. Etkisi kaldırıldı ve model güveni düşürüldü.</string>
-    <string name="data_degraded">BAZI VERİLER ESKİYOR</string>
-    <string name="data_degraded_body">Bazı girdiler normalden eski ya da bir veri açıklaması gecikti. Etkileri azaltıldı.</string>
+    <string name="data_degraded">BAZI VERİLER EKSİK</string>
+    <string name="data_degraded_body">Bazı göstergeler eksik veya normalden eski. Bunlar nötr ya da azaltılmış ağırlıkla sayılır ve model güveni düşer. Ayrıntılar için Neden? bölümüne bakın.</string>
 
     <!-- Signals, regimes -->
     <string name="signal_strong_buy">GÜÇLÜ AL</string>
@@ -215,9 +215,9 @@
     <string name="r_gram_fx_stronger">TL faizi, liradaki değer kaybını fazlasıyla telafi ediyor: 30 günde USD/TRY %1$s, faiz getirisi %2$s.</string>
     <string name="r_gram_fx_in_line">USD/TRY faiz getirisiyle uyumlu hareket ediyor (30 günde %1$s, faiz getirisi %2$s); bu nedenle kur bacağı nötr.</string>
 
-    <string name="w_component_aging">%1$s verisi eskiyor (%2$s önce); etkisi azaltıldı.</string>
-    <string name="w_component_stale">%1$s verisi eski (%2$s önce) ve artık skoru etkilemiyor.</string>
-    <string name="w_component_missing">%1$s verisi mevcut değil; nötr kabul edildi.</string>
+    <string name="w_component_aging">%1$s: veriler eskiyor (%2$s önce); etkisi azaltıldı.</string>
+    <string name="w_component_stale">%1$s: veriler eski (%2$s önce) ve artık skoru etkilemiyor.</string>
+    <string name="w_component_missing">%1$s: veri yok; nötr kabul edildi.</string>
     <string name="w_release_delayed">%2$s tarihinde beklenen %1$s verisi gecikti.</string>
     <string name="w_panic">Aşırı piyasa stresi: olağan ilişkiler geçici olarak bozulabilir.</string>
     <string name="w_demo_data">Demo veri.</string>

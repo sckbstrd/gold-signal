@@ -42,8 +42,8 @@
     <!-- Data status -->
     <string name="data_delayed">DATA DELAYED</string>
     <string name="data_delayed_body">A critical indicator is unavailable or stale. Its influence has been removed and confidence has been reduced.</string>
-    <string name="data_degraded">SOME DATA IS AGING</string>
-    <string name="data_degraded_body">Some inputs are older than usual or a release is late. Their influence has been reduced.</string>
+    <string name="data_degraded">SOME DATA UNAVAILABLE</string>
+    <string name="data_degraded_body">Some indicators are missing or older than usual. They count as neutral or with reduced weight, and confidence is lower. See Why? for details.</string>
 
     <!-- Signals, regimes -->
     <string name="signal_strong_buy">STRONG BUY</string>
@@ -217,9 +217,9 @@
     <string name="r_gram_fx_stronger">TRY interest more than compensates for lira weakness: USD/TRY %1$s vs %2$s carry over 30 days.</string>
     <string name="r_gram_fx_in_line">USD/TRY is moving in line with interest-rate carry (%1$s vs %2$s over 30 days), so the currency leg is neutral.</string>
 
-    <string name="w_component_aging">%1$s data is aging (%2$s old); its influence is reduced.</string>
-    <string name="w_component_stale">%1$s data is stale (%2$s old) and no longer influences the score.</string>
-    <string name="w_component_missing">%1$s data is unavailable and is treated as neutral.</string>
+    <string name="w_component_aging">%1$s: data is aging (%2$s old); its influence is reduced.</string>
+    <string name="w_component_stale">%1$s: data is stale (%2$s old) and no longer influences the score.</string>
+    <string name="w_component_missing">%1$s: no data available; treated as neutral.</string>
     <string name="w_release_delayed">The %1$s release due %2$s is delayed.</string>
     <string name="w_panic">Extreme market stress: normal relationships may temporarily break down.</string>
     <string name="w_demo_data">Demo data.</string>

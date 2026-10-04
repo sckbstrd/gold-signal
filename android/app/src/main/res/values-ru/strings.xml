@@ -40,8 +40,8 @@
     <!-- Data status -->
     <string name="data_delayed">ДАННЫЕ ЗАДЕРЖИВАЮТСЯ</string>
     <string name="data_delayed_body">Критический индикатор недоступен или устарел. Его влияние исключено, уверенность снижена.</string>
-    <string name="data_degraded">ЧАСТЬ ДАННЫХ УСТАРЕВАЕТ</string>
-    <string name="data_degraded_body">Некоторые данные старше обычного или публикация задерживается. Их влияние уменьшено.</string>
+    <string name="data_degraded">ЧАСТЬ ДАННЫХ НЕДОСТУПНА</string>
+    <string name="data_degraded_body">Некоторые индикаторы отсутствуют или устарели. Они учитываются как нейтральные или с меньшим весом, уверенность снижена. Подробнее — в разделе «Почему?».</string>
 
     <!-- Signals, regimes -->
     <string name="signal_strong_buy">СИЛЬНАЯ ПОКУПКА</string>
