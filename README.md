@@ -16,7 +16,7 @@ It does not predict prices and never trades.
 | 1. Android UI (EN / TR / RU) | Done |
 | 2. Deterministic signal engine, model v1.0.0 | Done |
 | 3. Backend: providers, validation, database, REST API, scheduler | Done |
-| 4. App ↔ backend: live data, offline cache, Live/Demo switch, data-health view | Done |
+| 4. App ↔ backend: live data, intraday prices + provisional score, offline cache, Live/Demo switch | Done |
 | 5. Historical backfill since 2008 + history screen and report | Done |
 | 6. Backtesting | Not started (the backtest screen shows a flagged demo) |
 | 7. Alerts / notifications | Not started |
@@ -25,7 +25,7 @@ It does not predict prices and never trades.
 ## How it runs
 
 ```
-GitHub Actions (23:45 UTC, Mon–Fri)
+GitHub Actions (every 30 min Mon–Fri + Sunday evening; official evaluation after 23:30 UTC)
   └─ backend: fetch → validate → store → evaluate (point-in-time) → render documents
        └─ GitHub Pages: /api/v1/*.json  +  /state/* (carried to the next run)
              └─ Android app (Live mode) reads <server>/api/v1/<path>.json, caches for offline use
