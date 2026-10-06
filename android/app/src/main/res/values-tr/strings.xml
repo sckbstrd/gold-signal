@@ -336,7 +336,7 @@
     <string name="loading">Yükleniyor…</string>
     <string name="health_latest_eval">Son resmi değerlendirme</string>
     <string name="health_generated">Veri üretim zamanı</string>
-    <string name="health_note">Ücretsiz veri kaynağı olmayan göstergeler (altın ETF varlıkları, merkez bankası alımları), sunucuya CSV içe aktarımı eklenene kadar eksik kalır.</string>
+    <string name="health_note">ETF varlıkları için en büyük altın ETF\'i olan SPDR GLD, tüm altın ETF\'lerinin vekili olarak kullanılır. Merkez bankası alımları IMF\'ye bildirilenlerdir; Dünya Altın Konseyi\'nin tahmin ettiği bildirilmemiş alımlar dahil değildir.</string>
 
     <!-- Live intraday -->
     <string name="live_label">CANLI</string>

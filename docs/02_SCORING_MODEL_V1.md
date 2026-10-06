@@ -177,6 +177,11 @@ s_ETF = T(H; dir = +1, horizons = (7D, 30D, 90D), σ = (1.0, 2.5, 5.0) %, ω = (
 
 There's no 1-day horizon and 90% of the weight sits on 30D/90D, so ETF data can't drive the daily signal.
 
+> **Data note (2026-10-07).** The live service feeds this component with SPDR GLD holdings only (the one free
+> daily series with history). GLD moves about twice as much in % terms as the global aggregate the sigmas
+> were set for, so the component saturates more often. The parameters are frozen; whether to widen the
+> sigmas is a v1.1 decision.
+
 ### 2.7 Central Bank Purchases — weight 5 (long-term)
 
 Monthly net official-sector purchases in tonnes (WGC/IMF), keyed by **publication date**, not reference month.
@@ -189,6 +194,11 @@ s_CB  = 0.7 · sq( (T12 − 500) / 250 )  +  0.3 · sq( (4·T3 − T12) / 400 )
 
 500 t/yr is the 2010–2021 baseline. The component updates monthly, and with weight 5 its total swing is
 ±2.5 points.
+
+> **Data note (2026-10-07).** The live service uses holdings *reported to the IMF* (International Liquidity
+> dataset, all reporting countries). Over 2010–2021 these match the WGC series the baseline was set on; from
+> 2022 the WGC adds large estimates of unreported buying that this series does not contain, so recent
+> "reported" purchases (~300–400 t/yr) read as below baseline. The indicator says so in the app.
 
 ---
 

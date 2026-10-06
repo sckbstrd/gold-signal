@@ -336,7 +336,7 @@
     <string name="loading">Загрузка…</string>
     <string name="health_latest_eval">Последняя официальная оценка</string>
     <string name="health_generated">Данные сформированы</string>
-    <string name="health_note">Индикаторы без бесплатного источника (запасы золотых ETF, покупки центробанков) остаются без данных, пока на сервер не добавлен CSV-импорт.</string>
+    <string name="health_note">Для запасов ETF используется SPDR GLD — крупнейший золотой ETF — как прокси всех золотых ETF. Покупки центробанков — только те, что заявлены в МВФ; незаявленные покупки, оцениваемые Всемирным советом по золоту, не учитываются.</string>
 
     <!-- Live intraday -->
     <string name="live_label">ОНЛАЙН</string>

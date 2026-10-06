@@ -1,9 +1,10 @@
 """Parsers against the real response formats (trimmed samples captured 2026-10-04)."""
 from __future__ import annotations
 
-from datetime import date, datetime, timezone
+from datetime import date, datetime, timedelta, timezone
 
-from app.providers.econ_sources import bls_actual, bls_values, parse_ff_week, parse_number, reference_period
+from app.providers.econ_sources import bls_actual, bls_values, parse_fxstreet, reference_period
+from app.providers.etf_cb import imf_available_at, parse_gld_archive, parse_imf_gold
 from app.providers.market import (forward_fill_daily, parse_frankfurter, parse_nyfed_effr, parse_tcmb_decisions,
                                   parse_treasury_csv, parse_yahoo_chart)
 
@@ -60,22 +61,90 @@ def test_tcmb_table_and_forward_fill():
     assert [(o.observation_date.day, o.value) for o in filled] == [(21, 5.0), (22, 5.0), (23, 37.0), (26, 37.0), (27, 37.0)]
 
 
-def test_econ_consensus_capture_and_bls_actuals():
-    assert parse_number("0.3%") == 0.3 and parse_number("150K") == 150 and parse_number("") is None
-    captured = datetime(2026, 10, 1, tzinfo=timezone.utc)
-    feed = [{"title": "Non-Farm Employment Change", "country": "USD", "date": "2026-10-02T08:30:00-04:00",
-             "impact": "High", "forecast": "100K", "previous": "22K"},
-            {"title": "ISM Services PMI", "country": "USD", "date": "2026-10-05T10:00:00-04:00",
-             "impact": "Medium", "forecast": "55.1", "previous": "55.4"}]
-    events = parse_ff_week(feed, captured, "ffcal")
-    assert len(events) == 1                         # ISM: no free actual -> not tracked
-    e = events[0]
-    assert (e.event_code, e.reference_period, e.consensus) == ("NFP", "2026-09", 100.0)
-    assert e.consensus_captured_at == captured       # captured before the release
-    late = parse_ff_week(feed, datetime(2026, 10, 3, tzinfo=timezone.utc), "ffcal")[0]
-    assert late.consensus_captured_at is None        # captured after release: unusable (look-ahead)
-    assert reference_period(datetime(2026, 1, 9, tzinfo=timezone.utc)) == "2025-12"
+def test_fxstreet_consensus_capture_rules():
+    now = datetime(2026, 10, 1, tzinfo=timezone.utc)
+    feed = [
+        {"eventId": "9cdf56fd-99e4-4026-aa99-2b6c0ca92811", "name": "Nonfarm Payrolls", "countryCode": "US",
+         "dateUtc": "2026-10-02T12:30:00Z", "periodDateUtc": "2026-09-01T00:00:00Z", "consensus": 90.0,
+         "previous": 162.0, "actual": None},
+        {"eventId": "9c689bbf-af2a-4f65-81a8-c5f5e2b78d70", "name": "Initial Jobless Claims", "countryCode": "US",
+         "dateUtc": "2026-09-24T12:30:00Z", "periodDateUtc": "2026-09-18T00:00:00Z", "consensus": 201.0,
+         "previous": 196.0, "actual": 197.0},
+        {"eventId": "6c5853c1-a409-4722-bdea-17ad5d8a193f", "name": "ISM Services PMI", "countryCode": "US",
+         "dateUtc": "2026-09-03T14:00:00Z", "periodDateUtc": "2026-08-01T00:00:00Z", "consensus": None,
+         "previous": 54.1, "actual": 55.4},
+        {"eventId": "0ba3bb41-ebb9-4a54-89f3-36346484dcfb", "name": "ISM Manufacturing Employment Index",
+         "countryCode": "US", "dateUtc": "2026-09-01T14:00:00Z", "consensus": None, "previous": 52.8, "actual": 51.2},
+        {"eventId": "9cdf56fd-99e4-4026-aa99-2b6c0ca92811", "name": "Nonfarm Payrolls", "countryCode": "CA",
+         "dateUtc": "2026-10-02T12:30:00Z", "periodDateUtc": "2026-09-01T00:00:00Z", "consensus": 1.0},
+    ]
+    events = parse_fxstreet(feed, now, "fxstreet")
+    assert [e.event_code for e in events] == ["NFP", "INITIAL_CLAIMS", "ISM_SERVICES"]   # unknown id / other country dropped
+    nfp, claims, ism = events
+    assert (nfp.reference_period, nfp.consensus, nfp.actual, nfp.released_at) == ("2026-09", 90.0, None, None)
+    assert nfp.consensus_captured_at == now                     # future release: captured live
+    assert (claims.reference_period, claims.actual) == ("2026-09-18", 197.0)
+    assert claims.released_at == claims.scheduled_at
+    assert claims.consensus_captured_at == claims.scheduled_at - timedelta(days=1)   # archived consensus
+    assert ism.consensus is None and ism.consensus_captured_at is None               # never usable
+    assert reference_period("CPI_YOY", None, datetime(2026, 1, 9, tzinfo=timezone.utc)) == "2025-12"
 
+
+def _xlsx(rows: list[list]) -> bytes:
+    """Tiny .xlsx writer for tests (shared strings for text, inline numbers)."""
+    import io
+    import zipfile
+    strings: list[str] = []
+    sheet = []
+    for i, row in enumerate(rows, start=1):
+        cells = []
+        for j, v in enumerate(row):
+            ref = f"{chr(65 + j)}{i}"
+            if isinstance(v, str):
+                strings.append(v)
+                cells.append(f'<c r="{ref}" t="s"><v>{len(strings) - 1}</v></c>')
+            else:
+                cells.append(f'<c r="{ref}"><v>{v}</v></c>')
+        sheet.append(f"<row r=\"{i}\">{''.join(cells)}</row>")
+    buf = io.BytesIO()
+    with zipfile.ZipFile(buf, "w") as z:
+        z.writestr("xl/workbook.xml", '<workbook xmlns:r="x"><sheets><sheet name="Disclaimer" sheetId="1" r:id="rId4"/>'
+                   '<sheet name="US GLD Historical Archive" sheetId="2" r:id="rId5"/></sheets></workbook>')
+        z.writestr("xl/_rels/workbook.xml.rels", '<Relationships><Relationship Id="rId4" Target="worksheets/sheet1.xml"/>'
+                   '<Relationship Id="rId5" Target="worksheets/sheet2.xml"/></Relationships>')
+        z.writestr("xl/sharedStrings.xml", "<sst>" + "".join(f"<si><t>{s}</t></si>" for s in strings) + "</sst>")
+        z.writestr("xl/worksheets/sheet1.xml", "<worksheet><sheetData/></worksheet>")
+        z.writestr("xl/worksheets/sheet2.xml", "<worksheet><sheetData>" + "".join(sheet) + "</sheetData></worksheet>")
+    return buf.getvalue()
+
+
+def test_gld_archive_parses_tonnes_and_skips_holidays():
+    data = _xlsx([["Date", "Closing Price", "Tonnes of Gold"],
+                  ["01-Oct-2026", 382.76, 1056.55],
+                  ["02-Oct-2026", 380.14, 1055.7],
+                  ["25-Nov-2004", "US Holiday", "US Holiday"],
+                  ["05-Oct-2026", 379.55, 1056.27]])
+    rows = parse_gld_archive(data, "spdr")
+    assert [(r.as_of_date.isoformat(), r.tonnes) for r in rows] ==         [("2026-10-01", 1056.55), ("2026-10-02", 1055.7), ("2026-10-05", 1056.27)]
+    assert rows[0].available_at == datetime(2026, 10, 2, 12, tzinfo=timezone.utc)    # public the next day
+
+
+def test_imf_gold_holdings_become_monthly_net_tonnes():
+    oz = 1_000_000 / 31.1034768                           # 1 tonne
+    xml = "".join(f'<Obs COUNTRY="GX010" INDICATOR="RGV_REVS" TIME_PERIOD="{p}" OBS_VALUE="{v}"/>' for p, v in [
+        ("2026-M05", 1000 * oz), ("2026-M06", 1050 * oz), ("2026-M08", 1100 * oz), ("2026-A", 1.0)])
+    now = datetime(2026, 10, 6, tzinfo=timezone.utc)
+    rows = parse_imf_gold(xml, "imf", now)
+    assert [(r.period_month.isoformat(), r.net_tonnes) for r in rows] == [("2026-06-01", 50.0)]   # gap -> skipped
+    assert imf_available_at(date(2026, 6, 1)) == datetime(2026, 8, 15, 12, tzinfo=timezone.utc)
+    assert rows[0].available_at == datetime(2026, 8, 15, 12, tzinfo=timezone.utc)   # rule date > 45 days ago: kept
+    assert imf_available_at(date(2026, 8, 1), now) == datetime(2026, 10, 15, 12, tzinfo=timezone.utc)  # rule ahead
+    assert imf_available_at(date(2026, 7, 1), now) == now                           # rule 3 weeks ago: first seen
+    assert imf_available_at(date(2026, 9, 1), now) == datetime(2026, 11, 15, 12, tzinfo=timezone.utc)
+    assert imf_available_at(date(2015, 1, 1), now) == datetime(2015, 3, 15, 12, tzinfo=timezone.utc)
+
+
+def test_bls_actuals():
     payload = {"Results": {"series": [
         {"seriesID": "CES0000000001", "data": [{"year": "2026", "period": "M09", "value": "159800"},
                                                {"year": "2026", "period": "M08", "value": "159770"}]},

@@ -343,9 +343,9 @@ at f = 0). This status ships with every signal response.
 | XAU/USD, DXY | Twelve Data (or similar) | — | key |
 | USD/TRY | TCMB EVDS | Frankfurter (ECB) | EVDS: free key |
 | TCMB policy rate | TCMB EVDS | config default | free key |
-| Econ actual + consensus | FMP economic calendar (or similar) | CSV import | key |
-| ETF holdings | SPDR GLD CSV, iShares IAU | WGC monthly | none |
-| Central-bank purchases | WGC Goldhub CSV (manual import) | IMF IFS | none |
+| Econ actual + consensus | FXStreet calendar API (implemented, no key) | CSV import | none |
+| ETF holdings | SPDR GLD historical archive (implemented; GLD as proxy) | CSV import | none |
+| Central-bank purchases | IMF International Liquidity, reported holdings (implemented) | CSV import | none |
 | Market gram gold | licensed TR quote provider | — | optional |
 
 Until a key is set, each family falls back to `mock`, and `/health/data` labels it **MOCK** so mock data is

@@ -338,7 +338,7 @@
     <string name="loading">Loading…</string>
     <string name="health_latest_eval">Latest official evaluation</string>
     <string name="health_generated">Data generated</string>
-    <string name="health_note">Indicators without a free data source (gold ETF holdings, central-bank purchases) stay missing until a CSV import is added on the server.</string>
+    <string name="health_note">ETF holdings use SPDR GLD, the largest gold ETF, as a proxy for all gold ETFs. Central-bank purchases are those reported to the IMF; unreported buying estimated by the World Gold Council is not included.</string>
 
     <!-- Live intraday -->
     <string name="live_label">LIVE</string>

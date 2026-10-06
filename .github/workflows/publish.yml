@@ -10,6 +10,11 @@ on:
                               # after 23:30 UTC also produces the official evaluation for the day
     - cron: "*/30 21-23 * * 0" # Sunday evening: gold futures reopen; new week's consensus captured
   workflow_dispatch:
+    inputs:
+      rebuild:
+        description: "Rebuild the reconstructed history from scratch (drops the carried signal log and engine state; keeps captured consensus and the market cache)"
+        type: boolean
+        default: false
 
 permissions:
   contents: read
@@ -46,6 +51,10 @@ jobs:
           for f in engine_state.json signals.json econ_events.json market.json.gz; do
             curl -sfL "$base/$f" -o "prev/$f" || echo "no previous $f (first run?)"
           done
+          if [ "${{ inputs.rebuild }}" = "true" ]; then
+            echo "REBUILD requested: discarding carried signals and engine state"
+            rm -f prev/signals.json prev/engine_state.json
+          fi
           ls -la prev
 
       - name: Tests

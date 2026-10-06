@@ -69,8 +69,8 @@ def signal_response(r: SignalResult, next_official: str | None) -> dict[str, Any
 
 SOURCE_LABELS = {
     "REAL_YIELD": "US Treasury", "FED": "US Treasury · NY Fed", "DXY": "ICE via Yahoo",
-    "NOMINAL_10Y": "US Treasury", "ECON": "BLS · ForexFactory", "ETF": "CSV import",
-    "CENTRAL_BANKS": "CSV import", "GRAM_TRY": "COMEX · ECB · TCMB",
+    "NOMINAL_10Y": "US Treasury", "ECON": "FXStreet · BLS", "ETF": "SPDR GLD",
+    "CENTRAL_BANKS": "IMF (reported)", "GRAM_TRY": "COMEX · ECB · TCMB",
 }
 
 

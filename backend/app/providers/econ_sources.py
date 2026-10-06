@@ -1,69 +1,91 @@
-"""US economic releases: consensus from the ForexFactory weekly feed, first-print actuals from BLS.
+"""US economic releases: consensus, previous and first-print actuals from the FXStreet calendar API
+(public JSON used by their calendar page; history since 2007), cross-checked against BLS for the
+releases BLS publishes.
 
-Only releases where BOTH a consensus and an official actual are freely available are
-tracked (CPI y/y, core CPI m/m, nonfarm payrolls, unemployment rate). Tracking a release
-whose actual can never arrive would make it look permanently "delayed".
-
-The weekly feed has no history, so consensus is captured going forward: each run stores
-this week's forecasts *before* release (consensus_captured_at), and the published
-state carries them across runs.
+Point-in-time rule for the consensus:
+  * a release still in the future is stored with ``consensus_captured_at = now`` (captured live;
+    refreshed on every run until the release);
+  * a release already out when first seen (history backfill, or a week this service missed) keeps the
+    calendar's archived pre-release consensus with ``consensus_captured_at = scheduled - 1 day``.
+    FXStreet freezes the consensus at release time, so this is the figure the market expected, but
+    it was not captured by this service and the pipeline never lets it overwrite a live capture.
 """
 from __future__ import annotations
 
-from datetime import date, datetime, timezone
+from datetime import date, datetime, timedelta, timezone
 
 from app.providers.base import EventRow, FetchResult, Http
 
-FF_URL = "https://nfs.faireconomy.media/ff_calendar_thisweek.json"
+FX_URL = "https://calendar-api.fxstreet.com/en/api/v1/eventDates/{start}/{end}?countries=US"
+FX_HISTORY_START = date(2007, 1, 1)
+FX_HEADERS = {"Referer": "https://www.fxstreet.com/", "Origin": "https://www.fxstreet.com"}
 BLS_URL = "https://api.bls.gov/publicAPI/v1/timeseries/data/"
 
-FF_TITLES = {
-    "CPI y/y": "CPI_YOY",
-    "Core CPI m/m": "CORE_CPI_MOM",
-    "Non-Farm Employment Change": "NFP",
-    "Unemployment Rate": "UNEMPLOYMENT",
+# FXStreet event ids are stable across renames (e.g. "ISM Non-Manufacturing" -> "ISM Services PMI").
+FX_EVENTS = {
+    "6f846eaa-9a12-43ab-930d-f059069c6646": "CPI_YOY",          # Consumer Price Index (YoY)
+    "4abee304-9984-47cf-80ab-dca1114165f5": "CORE_CPI_MOM",     # Consumer Price Index ex Food & Energy (MoM)
+    "f3ea3723-c2de-4332-b7a5-1ba539bea3f4": "PCE_YOY",          # PCE - Price Index (YoY)
+    "5d9ff5c8-1e0e-44b8-8d06-4ac39d217bf3": "CORE_PCE_MOM",     # Core PCE - Price Index (MoM)
+    "9cdf56fd-99e4-4026-aa99-2b6c0ca92811": "NFP",              # Nonfarm Payrolls (thousands)
+    "932c21fa-f664-40e1-a921-dbeb452f0081": "UNEMPLOYMENT",     # Unemployment Rate
+    "9c689bbf-af2a-4f65-81a8-c5f5e2b78d70": "INITIAL_CLAIMS",   # Initial Jobless Claims (thousands)
+    "2e1d69f3-8273-4096-b01b-8d2034d4fade": "ISM_MFG",          # ISM Manufacturing PMI
+    "6c5853c1-a409-4722-bdea-17ad5d8a193f": "ISM_SERVICES",     # ISM Services PMI
 }
-TRACKED = set(FF_TITLES.values())
+EVENT_CODES = set(FX_EVENTS.values())
+# Releases whose official first print BLS publishes through its public API (cross-check / fallback).
+TRACKED = {"CPI_YOY", "CORE_CPI_MOM", "NFP", "UNEMPLOYMENT"}
 BLS_SERIES = {"CPI": "CUUR0000SA0", "CORE_CPI_SA": "CUSR0000SA0L1E", "PAYROLLS": "CES0000000001",
               "UNRATE": "LNS14000000"}
 
 
-def parse_number(text: str | None) -> float | None:
-    if text is None:
-        return None
-    t = text.strip().replace("%", "").replace(",", "")
-    if not t:
-        return None
-    mult = 1.0
-    if t[-1] in "KMB":
-        mult = {"K": 1.0, "M": 1000.0, "B": 1_000_000.0}[t[-1]]       # payrolls are stored in thousands
-        t = t[:-1]
-    try:
-        return float(t) * mult
-    except ValueError:
-        return None
+def _utc(text: str) -> datetime:
+    dt = datetime.fromisoformat(text.replace("Z", "+00:00"))
+    return (dt if dt.tzinfo else dt.replace(tzinfo=timezone.utc)).astimezone(timezone.utc)
 
 
-def reference_period(release: datetime) -> str:
-    """CPI and the jobs report published in month M describe month M-1."""
-    y, m = release.year, release.month - 1
-    if m == 0:
-        y, m = y - 1, 12
-    return f"{y:04d}-{m:02d}"
+def reference_period(code: str, period_iso: str | None, release: datetime) -> str:
+    """Monthly releases -> "YYYY-MM" of the month they describe; weekly claims -> week-ending date."""
+    if code == "INITIAL_CLAIMS":
+        return (_utc(period_iso) if period_iso else release - timedelta(days=6)).date().isoformat()
+    if period_iso:
+        return _utc(period_iso).strftime("%Y-%m")
+    y, m = release.year, release.month - 1           # CPI / jobs report in month M describe month M-1
+    return f"{y - 1}-12" if m == 0 else f"{y:04d}-{m:02d}"
 
 
-def parse_ff_week(payload: list, captured_at: datetime, source: str) -> list[EventRow]:
+def parse_fxstreet(payload: list, now: datetime, source: str) -> list[EventRow]:
     out = []
     for e in payload:
-        if e.get("country") != "USD" or e.get("title") not in FF_TITLES:
+        code = FX_EVENTS.get(e.get("eventId"))
+        if code is None or e.get("countryCode") != "US":
             continue
-        when = datetime.fromisoformat(e["date"]).astimezone(timezone.utc)
+        when = _utc(e["dateUtc"])
+        released = when <= now and e.get("actual") is not None
+        captured = now if when > now else when - timedelta(days=1)
         out.append(EventRow(
-            event_code=FF_TITLES[e["title"]], reference_period=reference_period(when), scheduled_at=when,
-            source=source, previous=parse_number(e.get("previous")), consensus=parse_number(e.get("forecast")),
-            consensus_captured_at=captured_at if captured_at < when else None,
+            event_code=code, reference_period=reference_period(code, e.get("periodDateUtc"), when),
+            scheduled_at=when, source=source, previous=e.get("previous"), consensus=e.get("consensus"),
+            consensus_captured_at=captured if e.get("consensus") is not None else None,
+            released_at=when if released else None, actual=e.get("actual") if released else None,
         ))
     return out
+
+
+class FxStreetCalendarProvider:
+    code, name, url = "fxstreet", "FXStreet economic calendar (US releases)", "https://www.fxstreet.com/economic-calendar"
+
+    def fetch(self, http: Http, start: date, end: date, now: datetime) -> FetchResult:
+        res = FetchResult()
+        cur = max(start, FX_HISTORY_START)
+        stop_all = end + timedelta(days=35)                 # the snapshot shows releases 35 days ahead
+        while cur <= stop_all:
+            stop = min(stop_all, date(cur.year, 12, 31))
+            url = FX_URL.format(start=f"{cur.isoformat()}T00:00:00Z", end=f"{stop.isoformat()}T23:59:59Z")
+            res.events += parse_fxstreet(http.get(url, headers=FX_HEADERS).json(), now, self.code)
+            cur = stop + timedelta(days=1)
+        return res
 
 
 def bls_values(payload: dict) -> dict[str, dict[str, float]]:
@@ -104,13 +126,6 @@ def bls_actual(code: str, period: str, series: dict[str, dict[str, float]]) -> f
     except KeyError:
         return None
     return None
-
-
-class ForexFactoryCalendarProvider:
-    code, name, url = "ffcal", "ForexFactory weekly calendar (consensus)", FF_URL
-
-    def fetch(self, http: Http, start: date, end: date, now: datetime) -> FetchResult:
-        return FetchResult(events=parse_ff_week(http.get(FF_URL).json(), now, self.code))
 
 
 class BlsProvider:

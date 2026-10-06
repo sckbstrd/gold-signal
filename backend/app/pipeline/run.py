@@ -45,8 +45,7 @@ def run(session: Session, settings: Settings, now: datetime, previous_state: Pat
 
     if ingest:
         providers = providers if providers is not None else build_providers(settings)
-        last = session.execute(select(func.max(m.MarketData.observation_date))).scalar()
-        start = (last - timedelta(days=45)) if last else settings.history_start - timedelta(days=WARMUP_DAYS)
+        start = _ingest_start(session, settings)
         own_http = http is None and settings.providers != "mock"
         if own_http:
             http = Http(settings.http_timeout, settings.user_agent)
@@ -80,6 +79,21 @@ def run(session: Session, settings: Settings, now: datetime, previous_state: Pat
     save_documents(session, docs, now)
     summary.documents = len(docs)
     return summary
+
+
+def _ingest_start(session: Session, settings: Settings) -> date:
+    """Incremental window: 45 days before the oldest 'latest row' across data kinds, so a kind that
+    has never been loaded (or fell behind) is backfilled while the others stay incremental."""
+    full = settings.history_start - timedelta(days=WARMUP_DAYS)
+    lasts = [
+        session.execute(select(func.max(m.MarketData.observation_date))).scalar(),
+        session.execute(select(func.max(m.EtfHolding.as_of_date))).scalar(),
+    ]
+    last_event = session.execute(select(func.max(m.EconomicEvent.released_at))).scalar()
+    lasts.append(last_event.date() if last_event else None)
+    if any(x is None for x in lasts):
+        return full
+    return min(lasts) - timedelta(days=45)
 
 
 def latest_documents(session: Session) -> dict:

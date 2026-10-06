@@ -20,7 +20,7 @@ It does not predict prices and never trades.
 | 5. Historical backfill since 2008 + history screen and report | Done |
 | 6. Backtesting | Not started (the backtest screen shows a flagged demo) |
 | 7. Alerts / notifications | Not started |
-| 8. More data sources (ETF holdings, central banks, more econ releases) | Not started |
+| 8. More data sources | Partly done: ETF holdings (GLD), central banks (IMF), 9 US releases |
 
 ## How it runs
 
@@ -44,9 +44,11 @@ default, PostgreSQL via `GS_DATABASE_URL`). The REST API and the static site ser
 | USD/TRY | ECB reference rate (Frankfurter) |
 | TCMB policy rate | TCMB one-week repo table |
 | Spot gold quote (display only) | gold-api.com |
-| US data consensus | ForexFactory weekly calendar (captured before each release) |
-| US data actuals | BLS public API (CPI y/y, core CPI m/m, payrolls, unemployment) |
-| Gold ETF holdings, central-bank purchases | **No free feed.** Optional CSV import (`backend/app/providers/imports.py`); missing until added |
+| US data: consensus, previous, first-print actual (9 releases) | FXStreet economic-calendar API (history since 2007; consensus captured live before each release going forward) |
+| US data actuals, cross-check | BLS public API (CPI y/y, core CPI m/m, payrolls, unemployment) |
+| Gold ETF holdings | SPDR Gold Shares (GLD) daily tonnes since 2004 — the largest gold ETF, used as the proxy for all gold ETFs |
+| Central-bank purchases | IMF International Liquidity: monthly official gold holdings of all reporting countries since 2004 (**reported** purchases only — unreported buying estimated by the World Gold Council is not included) |
+| Any of the above | Optional CSV override (`backend/app/providers/imports.py`) |
 
 Missing inputs are never hidden. They count as neutral, lower model confidence, and appear as data warnings.
 
@@ -54,8 +56,10 @@ Missing inputs are never hidden. They count as neutral, lower model confidence, 
 
 - The confirmed signal was HOLD on ~94% of days. BUY ~3%, REDUCE ~3%, SELL 0.1%, and STRONG BUY never.
   Scores sit between 42 and 57 on 80% of days.
-- One reason is missing data: ETF, central-bank and economic data have no free history, so 25 of the 100
-  points are always neutral in the reconstruction.
+- The first reconstruction (2026-10-04) had no ETF, central-bank or economic data, so 25 of the 100 points
+  were always neutral. On 2026-10-07 those sources were added (see the table above) and the history was
+  rebuilt from scratch with the same frozen model; the report at `/api/v1/gold/history/report` is the
+  current one.
 - The direction is sensible. 2022 (Fed hiking) was REDUCE/SELL 42% of the time; 2024 was BUY 17.5%.
 - Model v1.0.0 is frozen. Any recalibration must be a new model version (v1.1) and an explicit decision.
 

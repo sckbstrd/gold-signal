@@ -46,7 +46,7 @@ SERIES: dict[str, SeriesSpec] = {s.code: s for s in [
     SeriesSpec("XAUUSD", calendars.FX, 0, dtime(22, 15), 200, 20000, 0.09, True, label="COMEX gold futures (GC=F) via Yahoo"),
     SeriesSpec("USDTRY", calendars.FX, 0, dtime(16, 0), 0.5, 500, 0.30, True, label="ECB reference rate via Frankfurter"),
     SeriesSpec("TCMB_POLICY_RATE", calendars.FX, 0, dtime(11, 0), 0, 100, None, label="TCMB one-week repo"),
-    SeriesSpec("ETF_HOLDINGS_T", calendars.NYSE, 1, dtime(12, 0), 0, 10000, 0.2, True, label="CSV import"),
+    SeriesSpec("ETF_HOLDINGS_T", calendars.NYSE, 1, dtime(12, 0), 0, 10000, 0.2, True, label="SPDR Gold Shares (GLD) holdings"),
 ]}
 
 

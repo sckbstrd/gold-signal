@@ -161,3 +161,44 @@ def test_api_serves_documents(mock_db):
     nf = client.get("/api/v1/nope")
     assert nf.status_code == 404 and nf.headers["content-type"].startswith("application/problem+json")
     assert client.get("/api/v1/backtest").status_code == 501
+
+
+# ------------------------------------------------------------------ econ events: point-in-time rules
+def test_live_consensus_is_never_replaced_by_an_archived_one(tmp_path):
+    from app.ingestion.jobs import store_events
+    from app.providers.base import EventRow
+    settings = _settings(tmp_path, "events")
+    sessions = make_sessionmaker(make_engine(settings.database_url))
+    release = datetime(2026, 10, 2, 12, 30, tzinfo=timezone.utc)
+    with sessions() as s:
+        t1 = release - timedelta(days=7)
+        store_events(s, [EventRow("NFP", "2026-09", release, "fxstreet", previous=162.0, consensus=100.0,
+                                  consensus_captured_at=t1)], t1)                    # captured live, a week before
+        t2 = release - timedelta(days=1)
+        store_events(s, [EventRow("NFP", "2026-09", release, "fxstreet", consensus=90.0,
+                                  consensus_captured_at=t2)], t2)                    # still live: refreshed
+        row = s.execute(select(m.EconomicEvent)).scalar_one()
+        assert (row.consensus, row.consensus_captured_at) == (90.0, t2)
+        t3 = release + timedelta(hours=1)
+        store_events(s, [EventRow("NFP", "2026-09", release, "fxstreet", consensus=95.0,
+                                  consensus_captured_at=release - timedelta(days=1), released_at=release,
+                                  actual=29.0)], t3)                                # archived consensus + actual
+        row = s.execute(select(m.EconomicEvent)).scalar_one()
+        assert (row.consensus, row.actual, row.released_at) == (90.0, 29.0, release)   # live capture kept
+        store_events(s, [EventRow("NFP", "2026-09", release, "bls", released_at=release, actual=31.0)], t3)
+        assert s.execute(select(m.EconomicEvent)).scalar_one().actual == 29.0           # first print kept
+        # A release first seen after the fact gets the archived consensus (nothing better exists).
+        store_events(s, [EventRow("CPI_YOY", "2026-08", release, "fxstreet", consensus=3.4,
+                                  consensus_captured_at=release - timedelta(days=1), released_at=release,
+                                  actual=3.4)], t3)
+        cpi = s.execute(select(m.EconomicEvent).filter_by(event_code="CPI_YOY")).scalar_one()
+        assert cpi.consensus == 3.4 and cpi.consensus_captured_at < cpi.released_at
+
+
+def test_ingest_window_backfills_a_kind_that_was_never_loaded(mock_db):
+    from app.pipeline.run import _ingest_start
+    settings, sessions, _ = mock_db
+    with sessions() as s:
+        assert _ingest_start(s, settings) > settings.history_start      # every kind loaded: incremental window
+        s.execute(m.EtfHolding.__table__.delete())
+        assert _ingest_start(s, settings) == date(2026, 6, 1) - timedelta(days=500)   # ETF missing: full

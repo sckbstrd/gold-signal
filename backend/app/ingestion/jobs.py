@@ -11,7 +11,7 @@ from sqlalchemy.orm import Session
 
 from app.db import models as m
 from app.providers.base import EventRow, FetchResult, Http
-from app.providers.econ_sources import BlsProvider, TRACKED
+from app.providers.econ_sources import BlsProvider, EVENT_CODES
 from app.validation.rules import Issue, cross_check_spot, validate
 
 log = logging.getLogger("gold_signal.ingest")
@@ -52,8 +52,10 @@ def store_observations(session: Session, result: FetchResult, now: datetime) -> 
     return len(checked), issues
 
 
-def store_events(session: Session, events: list[EventRow]) -> int:
-    """Consensus may be refreshed until release; the first-print actual is never overwritten."""
+def store_events(session: Session, events: list[EventRow], now: datetime) -> int:
+    """Consensus may be refreshed until release; the first-print actual is never overwritten.
+    A consensus captured live (before the release, by this service) is never replaced by one that a
+    calendar archived retroactively (``consensus_captured_at < now``)."""
     n = 0
     for e in events:
         row = session.execute(select(m.EconomicEvent).filter_by(
@@ -70,7 +72,9 @@ def store_events(session: Session, events: list[EventRow]) -> int:
             if e.previous is not None:
                 row.previous = e.previous
             if e.consensus is not None and e.consensus_captured_at is not None:
-                row.consensus, row.consensus_captured_at = e.consensus, e.consensus_captured_at
+                live = e.consensus_captured_at >= now
+                if live or row.consensus is None:
+                    row.consensus, row.consensus_captured_at = e.consensus, e.consensus_captured_at
             if e.actual is not None:
                 row.actual, row.released_at = e.actual, e.released_at
             n += 1
@@ -100,7 +104,7 @@ def run_ingest(session: Session, providers: list, http: Http | None, start: date
         try:
             result = p.fetch(http, start, end, now)
             n, issues = store_observations(session, result, now)
-            n += store_events(session, [e for e in result.events if e.event_code in TRACKED or p.code == "mock"])
+            n += store_events(session, [e for e in result.events if e.event_code in EVENT_CODES or p.code == "mock"], now)
             for q in result.quotes:
                 _upsert(session, m.LatestQuote, {"code": q.code},
                         {"value": q.value, "observed_at": q.observed_at, "source": q.source})
@@ -109,8 +113,14 @@ def run_ingest(session: Session, providers: list, http: Http | None, start: date
                         {"tonnes": r.tonnes, "source": r.source, "available_at": r.available_at})
                 n += 1
             for r in result.cb:
-                _upsert(session, m.CentralBankPurchase, {"period_month": r.period_month},
-                        {"net_tonnes": r.net_tonnes, "source": r.source, "available_at": r.available_at})
+                # available_at is "first seen" for live months: never moved once recorded.
+                existing = session.execute(
+                    select(m.CentralBankPurchase).filter_by(period_month=r.period_month)).scalar_one_or_none()
+                if existing is None:
+                    session.add(m.CentralBankPurchase(period_month=r.period_month, net_tonnes=r.net_tonnes,
+                                                      source=r.source, available_at=r.available_at))
+                else:
+                    existing.net_tonnes, existing.source = r.net_tonnes, r.source
                 n += 1
             _add_issues(session, issues, now)
             report.issues += len(issues)
@@ -126,14 +136,14 @@ def run_ingest(session: Session, providers: list, http: Http | None, start: date
             session.commit()
             log.warning("%s failed: %s", p.code, e)
 
-    if http is not None and any(p.code == "ffcal" for p in providers):
+    if http is not None and any(p.code == "fxstreet" for p in providers):
         try:
             pending = [EventRow(r.event_code, r.reference_period, r.scheduled_at, r.source, r.previous, r.consensus,
                                 r.consensus_captured_at, r.released_at, r.actual)
                        for r in session.execute(select(m.EconomicEvent).where(m.EconomicEvent.actual.is_(None))).scalars()]
             bls = BlsProvider()
             updated = bls.fetch_actuals(http, pending, now)
-            report.rows["bls"] = store_events(session, updated)
+            report.rows["bls"] = store_events(session, updated, now)
             _record_source(session, bls, now, len(updated), None)
             session.commit()
         except Exception as e:  # noqa: BLE001
