@@ -17,7 +17,8 @@ from app import presenters
 from app.db import models as m
 from app.engine import calendars
 from app.engine.params import ModelParams
-from app.pipeline.evaluation import latest_due_date, reproduce_latest
+from app.pipeline.evaluation import latest_due_date, load_state, reproduce_latest
+from app.pipeline.provisional import provisional_document
 from app.pipeline.store import SeriesStore, evaluation_time, trading_days
 from app.providers.base import SERIES
 
@@ -138,7 +139,20 @@ def build_documents(session: Session, store: SeriesStore, params: ModelParams, n
     if not matches:
         sig["warnings_internal"] = ["REPRODUCTION_HASH_MISMATCH"]
     docs["gold/signal"] = sig
-    docs["gold/current"] = presenters.current_response(snap, r, source, _quotes(session, now) if source != "mock" else None)
+
+    # Intraday: live quotes over the daily data -> provisional score + live prices (never the signal).
+    quotes = {} if source == "mock" else {
+        q.code: (q.value, q.observed_at) for q in session.execute(select(m.LatestQuote)).scalars()}
+    state = load_state(session, params)
+    prov_now = now if source != "mock" else evaluation_time(r.as_of_date)
+    prov, live_snap = provisional_document(store.snapshot(prov_now), state, params, quotes, sig, prov_now)
+    docs["gold/provisional"] = prov
+    if source != "mock" and prov["moved_inputs"]:
+        docs["gold/current"] = presenters.current_response(live_snap, r, source, _quotes(session, now))
+        docs["gold/current"]["as_of"] = now.isoformat()
+    else:
+        docs["gold/current"] = presenters.current_response(snap, r, source,
+                                                           _quotes(session, now) if source != "mock" else None)
     docs["gold/indicators"] = presenters.indicators_response(snap, r, source)
     for code in INDICATORS:
         docs[f"gold/indicators/{code}"] = presenters.indicator_detail(code, snap, r, source)

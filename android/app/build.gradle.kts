@@ -13,8 +13,8 @@ android {
         applicationId = "com.goldsignal.app"
         minSdk = 26
         targetSdk = 36
-        versionCode = 2
-        versionName = "0.2.0"
+        versionCode = 3
+        versionName = "0.3.0"
         // Live data: the static API published by the scheduled backend run (GitHub Pages). Overridable in Settings.
         buildConfigField("String", "DEFAULT_SERVER_URL", "\"https://sckbstrd.github.io/gold-signal/api/v1/\"")
     }

@@ -12,6 +12,7 @@ import com.goldsignal.model.HealthResponse
 import com.goldsignal.model.HistoryReport
 import com.goldsignal.model.HistoryResponse
 import com.goldsignal.model.IndicatorDetail
+import com.goldsignal.model.ProvisionalResponse
 import com.goldsignal.model.SignalResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -48,7 +49,8 @@ class LiveGoldRepository(
     private suspend fun <T> doc(path: String, serializer: KSerializer<T>): T = withContext(Dispatchers.IO) {
         val file = cacheFile(path)
         try {
-            val request = Request.Builder().url(baseUrl + path + ".json").header("Accept", "application/json").build()
+            // 5-minute cache-buster: the static host's CDN would otherwise serve copies up to 10 minutes old.
+            val request = Request.Builder().url(baseUrl + path + ".json?t=" + System.currentTimeMillis() / 300_000).header("Accept", "application/json").build()
             val body = client.newCall(request).execute().use { r ->
                 if (!r.isSuccessful) throw IOException("HTTP ${r.code} for $path")
                 r.body.string()
@@ -72,6 +74,7 @@ class LiveGoldRepository(
     override suspend fun history(): HistoryResponse = doc("gold/history", serializer())
     override suspend fun historyReport(): HistoryReport = doc("gold/history/report", serializer())
     override suspend fun health(): HealthResponse = doc("health/data", serializer())
+    override suspend fun provisional(): ProvisionalResponse = doc("gold/provisional", serializer())
 
     /** The real backtest is Phase 6; until then the clearly flagged demo is shown in both modes. */
     override suspend fun backtest(request: BacktestRequest): BacktestResponse = demoBacktest(request)

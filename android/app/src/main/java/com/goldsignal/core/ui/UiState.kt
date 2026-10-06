@@ -29,15 +29,24 @@ class LoadViewModel<T>(private val loader: suspend () -> T) : ViewModel() {
         refresh()
     }
 
-    fun refresh() {
-        _state.value = UiState.Loading
+    /** Millis of the last successful load (0 = never). */
+    var loadedAt: Long = 0L
+        private set
+
+    /** silent = keep showing the current data while reloading (used for auto-refresh). */
+    fun refresh(silent: Boolean = false) {
+        if (!silent || _state.value !is UiState.Ready) _state.value = UiState.Loading
         viewModelScope.launch {
-            _state.value = try {
-                UiState.Ready(loader())
+            try {
+                _state.value = UiState.Ready(loader())
+                loadedAt = System.currentTimeMillis()
             } catch (e: CancellationException) {
                 throw e
             } catch (e: Exception) {
-                UiState.Failed(e.message ?: e::class.java.simpleName)
+                // A failed silent refresh keeps the data on screen; a visible one shows the error.
+                if (!silent || _state.value !is UiState.Ready) {
+                    _state.value = UiState.Failed(e.message ?: e::class.java.simpleName)
+                }
             }
         }
     }

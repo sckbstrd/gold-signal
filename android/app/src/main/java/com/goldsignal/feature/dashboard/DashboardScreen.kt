@@ -1,6 +1,14 @@
 package com.goldsignal.feature.dashboard
 
+import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.runtime.LaunchedEffect
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.compose.LocalLifecycleOwner
+import androidx.lifecycle.repeatOnLifecycle
+import com.goldsignal.model.ProvisionalResponse
+import kotlinx.coroutines.delay
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -74,7 +82,11 @@ data class DashboardData(
     val source: DataSource,
     val fetch: FetchInfo,
     val history: List<HistoryPoint>?,
+    val provisional: ProvisionalResponse?,
 )
+
+/** The backend republishes every 30 minutes; while the dashboard is visible, poll every 5. */
+private const val AUTO_REFRESH_MS = 5 * 60_000L
 
 @Composable
 fun DashboardScreen(onIndicator: (String) -> Unit, onWhy: (Int) -> Unit, onHistory: () -> Unit) {
@@ -83,11 +95,25 @@ fun DashboardScreen(onIndicator: (String) -> Unit, onWhy: (Int) -> Unit, onHisto
             val s = async { signal() }
             val c = async { current() }
             val h = async { runCatching { history().rows() }.getOrNull() }
-            DashboardData(s.await(), c.await(), source, freshness, h.await())
+            val p = async { runCatching { provisional() }.getOrNull() }
+            DashboardData(s.await(), c.await(), source, freshness, h.await(), p.await())
         }
     }
     val state by vm.state.collectAsStateWithLifecycle()
     val c = container()
+    val lifecycle = LocalLifecycleOwner.current.lifecycle
+    LaunchedEffect(vm, lifecycle, c.repositoryKey) {
+        if (c.dataSource != DataSource.LIVE || !c.autoRefresh) return@LaunchedEffect
+        lifecycle.repeatOnLifecycle(Lifecycle.State.RESUMED) {
+            while (true) {
+                // Also catches up immediately when the app comes back to the foreground.
+                if (vm.loadedAt > 0 && System.currentTimeMillis() - vm.loadedAt >= AUTO_REFRESH_MS) {
+                    vm.refresh(silent = true)
+                }
+                delay(30_000)
+            }
+        }
+    }
     ScreenScaffold(title = stringResource(R.string.dashboard_title), scrollable = state is UiState.Ready,
         onRefresh = vm::refresh) {
         when (val s = state) {
@@ -137,6 +163,7 @@ private fun DashboardContent(
     }
 
     PriceCard(d.current, f, onGram = { onIndicator("GRAM_TRY") })
+    d.provisional?.let { LiveCard(it, f) }
 
     SectionCard {
         Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
@@ -190,6 +217,44 @@ private fun DashboardContent(
     Disclaimer(d.signal.modelVersion)
 }
 
+@Composable
+private fun LiveCard(p: ProvisionalResponse, f: Fmt) {
+    val sc = LocalSignalColors.current
+    SectionCard {
+        Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+            Canvas(Modifier.size(10.dp)) { drawCircle(if (p.marketOpen) sc.bullish else sc.neutral) }
+            Text(stringResource(if (p.marketOpen) R.string.live_label else R.string.markets_closed),
+                style = MaterialTheme.typography.labelLarge, fontWeight = FontWeight.Bold,
+                color = if (p.marketOpen) sc.bullish else MaterialTheme.colorScheme.onSurfaceVariant)
+            Spacer(Modifier.weight(1f))
+            (p.quotesAsOf ?: p.asOf).let {
+                Text(stringResource(R.string.live_updated, f.time(it)), style = MaterialTheme.typography.labelMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant)
+            }
+        }
+        Text(stringResource(R.string.provisional_title), style = MaterialTheme.typography.labelMedium,
+            color = MaterialTheme.colorScheme.onSurfaceVariant)
+        Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+            Text(f.num(p.score, 1), style = MaterialTheme.typography.headlineMedium.merge(Tabular),
+                fontWeight = FontWeight.SemiBold)
+            SignalBadge(p.rawBand)
+            p.official.score?.let { official ->
+                val delta = p.score - official
+                Text(stringResource(R.string.provisional_vs_official, f.signed(delta, 1), f.num(official, 1)),
+                    style = MaterialTheme.typography.labelMedium.merge(Tabular),
+                    color = if (delta > 0.05) sc.bullish else if (delta < -0.05) sc.bearish else sc.neutral)
+            }
+        }
+        Text(
+            stringResource(R.string.provisional_note,
+                p.official.signal?.let { signalText(it) } ?: "—",
+                p.official.nextOfficialEvaluation?.let { f.dateTime(it) } ?: "—"),
+            style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant,
+        )
+    }
+}
+
 /** The backend should have produced a newer evaluation by now (3 h grace after the scheduled time). */
 private fun isOverdue(nextOfficial: String?): Boolean = runCatching {
     nextOfficial != null && Instant.now().isAfter(OffsetDateTime.parse(nextOfficial).toInstant().plusSeconds(3 * 3600))
@@ -222,6 +287,11 @@ private fun PriceCard(c: CurrentResponse, f: Fmt, onGram: () -> Unit) {
             stringResource(R.string.distance_from_high, f.pct(c.gold.distanceFromHighPct), f.usd(c.gold.high52w)),
             style = MaterialTheme.typography.bodySmall,
             color = if (c.gold.distanceFromHighPct < -10) sc.bearish else MaterialTheme.colorScheme.onSurfaceVariant,
+        )
+        Text(
+            stringResource(R.string.prices_as_of, f.dateTime(c.gold.observedAt)),
+            style = MaterialTheme.typography.labelSmall,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
         )
     }
 }

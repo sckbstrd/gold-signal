@@ -137,7 +137,12 @@ def main() -> None:
     print(f"engine v{result.model_version}: score {result.global_.score} {result.global_.signal}, "
           f"confidence {result.global_.confidence}, regime {result.regime}")
 
-    write("signal.json", presenters.signal_response(result, NEXT_OFFICIAL))
+    signal = presenters.signal_response(result, NEXT_OFFICIAL)
+    write("signal.json", signal)
+    from app.pipeline.provisional import provisional_document
+    after = evaluate(snap, prior_state(), params).state
+    prov, _ = provisional_document(snap, after, params, {}, signal, snap.as_of)   # demo: markets closed
+    write("provisional.json", prov)
     write("current.json", presenters.current_response(snap, result, SOURCE))
     write("indicators.json", presenters.indicators_response(snap, result, SOURCE))
     for code in [*params.weights.keys(), "GRAM_TRY"]:

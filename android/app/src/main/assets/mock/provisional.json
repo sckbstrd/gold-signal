@@ -1,0 +1,64 @@
+{
+ "as_of": "2026-10-02T23:30:00+00:00",
+ "quotes_as_of": null,
+ "market_open": false,
+ "moved_inputs": [],
+ "score": 61.2,
+ "raw_band": "BUY",
+ "gram_score": 61.2,
+ "gram_raw_band": "BUY",
+ "regime_candidate": "GOLD_BULL",
+ "panic_trigger": false,
+ "components": [
+  {
+   "code": "REAL_YIELD",
+   "points": 20.04,
+   "s": 0.3358,
+   "status": "FRESH"
+  },
+  {
+   "code": "FED",
+   "points": 12.95,
+   "s": 0.2946,
+   "status": "FRESH"
+  },
+  {
+   "code": "DXY",
+   "points": 9.36,
+   "s": 0.2475,
+   "status": "FRESH"
+  },
+  {
+   "code": "NOMINAL_10Y",
+   "points": 4.09,
+   "s": -0.1811,
+   "status": "FRESH"
+  },
+  {
+   "code": "ECON",
+   "points": 5.72,
+   "s": 0.1449,
+   "status": "FRESH"
+  },
+  {
+   "code": "ETF",
+   "points": 5.83,
+   "s": 0.1667,
+   "status": "FRESH"
+  },
+  {
+   "code": "CENTRAL_BANKS",
+   "points": 3.2,
+   "s": 0.2791,
+   "status": "FRESH"
+  }
+ ],
+ "official": {
+  "as_of_date": "2026-10-02",
+  "score": 61.2,
+  "signal": "BUY",
+  "gram_signal": "BUY",
+  "next_official_evaluation": "2026-10-05T23:30:00+00:00"
+ },
+ "model_version": "1.0.0"
+}

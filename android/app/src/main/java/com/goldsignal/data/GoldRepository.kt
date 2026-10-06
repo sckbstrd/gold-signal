@@ -8,6 +8,7 @@ import com.goldsignal.model.HealthResponse
 import com.goldsignal.model.HistoryReport
 import com.goldsignal.model.HistoryResponse
 import com.goldsignal.model.IndicatorDetail
+import com.goldsignal.model.ProvisionalResponse
 import com.goldsignal.model.SignalResponse
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
@@ -30,6 +31,7 @@ interface GoldRepository {
     suspend fun history(): HistoryResponse
     suspend fun historyReport(): HistoryReport
     suspend fun health(): HealthResponse
+    suspend fun provisional(): ProvisionalResponse
     suspend fun backtest(request: BacktestRequest): BacktestResponse
 }
 

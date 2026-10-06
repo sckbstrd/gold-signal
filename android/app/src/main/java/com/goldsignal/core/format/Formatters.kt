@@ -95,6 +95,12 @@ class Fmt(val locale: Locale) {
             .format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM, FormatStyle.SHORT).withLocale(locale))
     }.getOrDefault(iso)
 
+    /** Local time of day only, e.g. "20:18" / "8:18 PM". */
+    fun time(iso: String, zone: ZoneId = ZoneId.systemDefault()): String = runCatching {
+        OffsetDateTime.parse(iso).atZoneSameInstant(zone)
+            .format(DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT).withLocale(locale))
+    }.getOrDefault(iso)
+
     fun dateTimeMillis(millis: Long, zone: ZoneId = ZoneId.systemDefault()): String =
         java.time.Instant.ofEpochMilli(millis).atZone(zone)
             .format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM, FormatStyle.SHORT).withLocale(locale))

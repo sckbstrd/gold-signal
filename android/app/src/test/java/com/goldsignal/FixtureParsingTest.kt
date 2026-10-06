@@ -75,6 +75,9 @@ class FixtureParsingTest {
         val r = AppJson.decodeFromString<com.goldsignal.model.HistoryReport>(read("history_report.json"))
         assertEquals(h.size, r.days)
         assertEquals(100.0, r.signalShare.values.sum(), 0.5)
+        val p = AppJson.decodeFromString<com.goldsignal.model.ProvisionalResponse>(read("provisional.json"))
+        assertEquals(61.2, p.score, 1e-9)
+        assertEquals(SignalLabel.BUY, p.official.signal)
         val health = AppJson.decodeFromString<com.goldsignal.model.HealthResponse>(read("health.json"))
         assertTrue(health.series.isNotEmpty())
     }

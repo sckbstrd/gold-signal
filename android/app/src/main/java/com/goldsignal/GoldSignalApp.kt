@@ -40,6 +40,9 @@ class AppContainer(app: Application) {
     val repository: GoldRepository
         get() = if (dataSource == DataSource.MOCK) mock else liveFor(serverUrl)
 
+    /** Periodic refresh of the dashboard in Live mode (tests switch it off). */
+    var autoRefresh: Boolean = true
+
     /** Changes whenever the effective data source changes (scopes ViewModels; observable from Compose). */
     val repositoryKey: String
         get() {

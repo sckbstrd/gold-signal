@@ -291,7 +291,7 @@
     <string name="lang_system">Как в системе</string>
     <string name="settings_data_source">Источник данных</string>
     <string name="data_source_mock">Встроенные иллюстративные данные, рассчитанные настоящим движком оценки. Интернет не нужен; это не рыночные данные.</string>
-    <string name="data_source_live">Официальные оценки, которые сервер Gold Signal публикует после каждого торгового дня в США (23:30 UTC). Данные сохраняются для работы офлайн.</string>
+    <string name="data_source_live">Официальные сигналы после каждого торгового дня в США (23:30 UTC), а также текущие цены и предварительная оценка каждые 30 минут. Данные сохраняются для работы офлайн.</string>
     <string name="settings_alerts">Уведомления</string>
     <string name="alerts_phase7">Уведомления о смене сигнала, крупных изменениях оценки, смене режима, важных данных по США, решениях ФРС и экстремальных событиях появятся в фазе 7.</string>
     <string name="settings_about">О приложении</string>
@@ -337,6 +337,15 @@
     <string name="health_latest_eval">Последняя официальная оценка</string>
     <string name="health_generated">Данные сформированы</string>
     <string name="health_note">Индикаторы без бесплатного источника (запасы золотых ETF, покупки центробанков) остаются без данных, пока на сервер не добавлен CSV-импорт.</string>
+
+    <!-- Live intraday -->
+    <string name="live_label">ОНЛАЙН</string>
+    <string name="markets_closed">РЫНКИ ЗАКРЫТЫ</string>
+    <string name="live_updated">Обновлено %1$s</string>
+    <string name="provisional_title">Предварительная оценка (внутри дня)</string>
+    <string name="provisional_vs_official">%1$s к официальной %2$s</string>
+    <string name="provisional_note">Пересчитывается каждые 30 минут по текущим ценам доллара, золота и лиры; доходности облигаций обновляются после закрытия рынка США. Официальный сигнал (%1$s) меняется только раз в день; следующая оценка %2$s.</string>
+    <string name="prices_as_of">Цены на %1$s</string>
 
     <plurals name="business_days">
         <item quantity="one">%d рабочий день</item>

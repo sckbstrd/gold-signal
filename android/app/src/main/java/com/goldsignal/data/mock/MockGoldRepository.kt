@@ -12,6 +12,7 @@ import com.goldsignal.model.HealthResponse
 import com.goldsignal.model.HistoryReport
 import com.goldsignal.model.HistoryResponse
 import com.goldsignal.model.IndicatorDetail
+import com.goldsignal.model.ProvisionalResponse
 import com.goldsignal.model.SignalResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -35,6 +36,7 @@ class MockGoldRepository(private val assets: AssetManager) : GoldRepository {
     override suspend fun history(): HistoryResponse = AppJson.decodeFromString(text("history.json"))
     override suspend fun historyReport(): HistoryReport = AppJson.decodeFromString(text("history_report.json"))
     override suspend fun health(): HealthResponse = AppJson.decodeFromString(text("health.json"))
+    override suspend fun provisional(): ProvisionalResponse = AppJson.decodeFromString(text("provisional.json"))
 
     /**
      * Demo only: one fixed synthetic run. Monetary values are scaled to the requested capital

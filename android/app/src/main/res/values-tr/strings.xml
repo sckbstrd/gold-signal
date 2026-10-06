@@ -291,7 +291,7 @@
     <string name="lang_system">Sistem varsayılanı</string>
     <string name="settings_data_source">Veri kaynağı</string>
     <string name="data_source_mock">Gerçek puanlama motorunun ürettiği, uygulamaya gömülü örnek veriler. İnternet gerekmez; piyasa verisi değildir.</string>
-    <string name="data_source_live">Gold Signal sunucusunun her ABD işlem günü sonrasında (23:30 UTC) yayımladığı resmi değerlendirmeler. Veriler çevrimdışı kullanım için saklanır.</string>
+    <string name="data_source_live">Her ABD işlem günü sonrasında (23:30 UTC) resmi sinyaller, ayrıca 30 dakikada bir canlı fiyatlar ve geçici skor. Veriler çevrimdışı kullanım için saklanır.</string>
     <string name="settings_alerts">Bildirimler</string>
     <string name="alerts_phase7">Sinyal değişiklikleri, büyük skor hareketleri, rejim değişiklikleri, önemli ABD veri açıklamaları, Fed kararları ve aşırı piyasa olayları için bildirimler 7. aşamada gelecek.</string>
     <string name="settings_about">Hakkında</string>
@@ -337,6 +337,15 @@
     <string name="health_latest_eval">Son resmi değerlendirme</string>
     <string name="health_generated">Veri üretim zamanı</string>
     <string name="health_note">Ücretsiz veri kaynağı olmayan göstergeler (altın ETF varlıkları, merkez bankası alımları), sunucuya CSV içe aktarımı eklenene kadar eksik kalır.</string>
+
+    <!-- Live intraday -->
+    <string name="live_label">CANLI</string>
+    <string name="markets_closed">PİYASALAR KAPALI</string>
+    <string name="live_updated">Güncelleme %1$s</string>
+    <string name="provisional_title">Geçici skor (gün içi)</string>
+    <string name="provisional_vs_official">resmi %2$s skora göre %1$s</string>
+    <string name="provisional_note">Canlı dolar, altın ve TL fiyatlarıyla 30 dakikada bir yeniden hesaplanır; tahvil faizleri ABD kapanışından sonra güncellenir. Resmi sinyal (%1$s) günde yalnızca bir kez değişir; sonraki değerlendirme %2$s.</string>
+    <string name="prices_as_of">Fiyatlar: %1$s</string>
 
     <plurals name="business_days">
         <item quantity="one">%d iş günü</item>

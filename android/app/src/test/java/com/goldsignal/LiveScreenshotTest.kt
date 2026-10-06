@@ -50,13 +50,14 @@ class LiveScreenshotTest {
         assumeTrue("GS_LIVE_SITE not set", site != null && site.isDirectory)
         server.dispatcher = object : Dispatcher() {
             override fun dispatch(request: RecordedRequest): MockResponse {
-                val file = File(site, request.target.removePrefix("/"))
+                val file = File(site, request.target.substringBefore('?').removePrefix("/"))
                 return if (file.isFile) MockResponse.Builder().body(file.readText()).build()
                 else MockResponse.Builder().code(404).build()
             }
         }
         server.start()
         val container = (ApplicationProvider.getApplicationContext<Context>() as GoldSignalApp).container
+        container.autoRefresh = false
         container.dataSource = DataSource.LIVE
         container.serverUrl = server.url("/api/v1/").toString()
     }

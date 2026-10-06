@@ -38,7 +38,7 @@ class LiveRepositoryTest {
         server.enqueue(MockResponse.Builder().body(fixture("signal.json")).build())
         val s = repo().signal()
         assertEquals(61.2, s.global.score, 1e-9)
-        assertEquals("/api/v1/gold/signal.json", server.takeRequest().target)
+        assertTrue(server.takeRequest().target.startsWith("/api/v1/gold/signal.json?t="))
     }
 
     @Test

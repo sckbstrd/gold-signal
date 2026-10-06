@@ -37,6 +37,7 @@ class LiveSiteContractTest {
         load<EventsResponse>("economic-events")
         load<HealthResponse>("health/data")
         load<HistoryReport>("gold/history/report")
+        if (File(root, "gold/provisional.json").exists()) load<com.goldsignal.model.ProvisionalResponse>("gold/provisional")
         check(load<HistoryResponse>("gold/history").rows().size > 1000)
         for (code in listOf("REAL_YIELD", "FED", "DXY", "NOMINAL_10Y", "ECON", "ETF", "CENTRAL_BANKS", "GRAM_TRY")) {
             val d = load<IndicatorDetail>("gold/indicators/$code")
